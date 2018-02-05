@@ -10,3 +10,6 @@ README.md
 *.cw
 .idea/
 .DS_Store
+*.cor
+libft/libft.a
+libft/.cache_exists
