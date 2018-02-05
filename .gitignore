@@ -12,3 +12,4 @@ README.md
 *.cor
 libft/libft.a
 libft/.cache_exists
+champs/
