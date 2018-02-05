@@ -2,7 +2,6 @@
 ./obj
 ./libft/obj
 cmake-build-debug
-CMakeLists.txt
 corewar
 ./asm
 README.md

@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 17:34:26 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/01/17 19:06:14 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/05 12:20:52 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@
 # include "../src/ft_printf/includes/ft_printf_supported_functions.h"
 # include "../src/array/includes/ft_array.h"
 # include "../src/error/includes/ft_errors.h"
+# include "../src/additional/includes/additional.h"
 
 #endif

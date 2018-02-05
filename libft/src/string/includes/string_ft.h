@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 19:57:19 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/04 16:46:18 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/05 12:22:03 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,5 @@ char					*ft_strtrim(char const *s);
 */
 
 size_t					ft_strlcpy(char *dst, const char *src, size_t size);
-
-unsigned int			ft_to_bin(unsigned int k);
 
 #endif
