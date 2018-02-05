@@ -1,0 +1,12 @@
+*.o
+./obj
+./libft/obj
+cmake-build-debug
+CMakeLists.txt
+corewar
+./asm
+README.md
+.README.md
+*.cw
+.idea/
+.DS_Store
