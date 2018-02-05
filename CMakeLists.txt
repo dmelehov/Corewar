@@ -176,5 +176,6 @@ add_executable(corewar
         src/running/run_player.c
         src/running/run_processes.c
         src/validation/validation.c
+        libft/src/additional/includes/additional.h
         libft/src/additional/src/ft_to_bin.c
         src/main.c)
