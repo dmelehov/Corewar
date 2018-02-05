@@ -20,7 +20,7 @@ int						command_lldi(t_core *core, t_process *process)
 		printf("pc: %x\t", core->map[process->pc]);
 		printf("index: %d\t", process->pc);
 		printf("cycle: %d\t", core->cycle);
-		printf("process: %d\t\n", process->reg[0]);
+		printf("reg[0]: %d\t\n", process->reg[0]);
 	}
 	return (0);
 }

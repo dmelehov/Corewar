@@ -20,17 +20,17 @@ void					run_processes(t_core *core)
 	{
 		if (FLAGS->v && FLAGS->verbosity_two)
 			printf("It is now cycle %d\n", CYCLE);
-		if (FLAGS->dump && CYCLE == FLAGS->dump_cycle)
-		{
-			print_map(core);
-			break ;
-		}
 		process = core->process ? core->process : NULL;
 		while (process)
 		{
 			process->cycle++;
 			run_player(core, process);
 			process = process->next;
+		}
+		if (FLAGS->dump && CYCLE == FLAGS->dump_cycle)
+		{
+			print_map(core);
+			break ;
 		}
 		CYCLE++;
 		core->current_cycle++;

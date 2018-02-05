@@ -12,24 +12,27 @@
 
 #include "../../include/vm.h"
 
-int						print_command_ld(t_core *core, t_process *process)
+static void				print_flag_v(t_core *core, t_process *process)
 {
 	if (core->flags->v && core->flags->verbosity_four)
 	{
-		printf("command: %s\t\t", g_op_tab[1].command);
-		printf("pc: %x\t", core->map[process->pc]);
-		printf("index: %d\t", process->pc);
-		printf("cycle: %d\t", core->cycle);
-		printf("process: %d\t\n", process->reg[0]);
+		printf("P%5d | %s ", process->id, "ld");
+		printf("%d r%d\n", process->args[0].arg, process->args[1].arg);
 	}
-	return (0);
 }
 
 int						command_ld(t_core *core, t_process *process)
 {
-	t_player		*tmp;
-
-	tmp = core->players ? core->players : NULL;
-	print_command_ld(core, process);
+	if (ARGS[0].type == DIR_CODE)
+	{
+		if (ARGS[1].arg <= REG_NUMBER)
+			REG[ARGS[1].arg - 1] = ARGS[0].arg;
+	}
+	else if (ARGS[0].type == IND_CODE)
+	{
+		if (ARGS[1].arg <= REG_NUMBER)
+			REG[ARGS[1].arg - 1] = get_value_from_map(MAP, ARGS[0].arg % MEM_SIZE, 4);
+	}
+	print_flag_v(core, process);
 	return (1);
 }

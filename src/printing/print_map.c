@@ -26,7 +26,7 @@ void					print_map(t_core *core)
 	while (++x < sqrt(MEM_SIZE) && (x * y < MEM_SIZE))
 	{
 		y = -1;
-		printf("Ox%.4x : ", count);
+		printf("0x%.4x : ", count);
 		while (++y < sqrt(MEM_SIZE) && (x * y < MEM_SIZE))
 		{
 			if (*t_map && core->flags->color)

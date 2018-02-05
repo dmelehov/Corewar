@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_fork.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhadiats <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 18:35:26 by rhadiats          #+#    #+#             */
-/*   Updated: 2018/02/04 18:51:17 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/01/04 18:35:29 by rhadiats         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int						command_fork(t_core *core, t_process *process)
 		printf("pc: %x\t", core->map[process->pc]);
 		printf("index: %d\t", process->pc);
 		printf("cycle: %d\t", core->cycle);
-		printf("process: %d\t\n", process->reg[0]);
+		printf("reg[0]: %d\t\n", process->reg[0]);
 	}
-	// write(1, core->map, 4096);
-	// printf("%s\n", core->map);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhadiats <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 20:13:43 by rhadiats          #+#    #+#             */
-/*   Updated: 2018/02/04 16:41:52 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/05 13:12:45 by rhadiats         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@
 
 # define DATA_SIZE		PROG_NAME_LENGTH + COMMENT_LENGTH + 4 + (MEM_SIZE / 4)
 # define FORMAT			16
+# define MAP			core->map
 # define FLAGS			core->flags
 # define CYCLE			core->cycle
+# define ARGS			process->args
+# define REG			process->reg
 
 /*
 ** ----------------------------
@@ -82,12 +85,14 @@ typedef struct			s_header
 typedef struct			s_process
 {
 	int					pc;
+	int					player;
 	int					*reg;
 	unsigned int		id;
 	unsigned int		cycle;
 	unsigned int		carry : 1;
 	unsigned int		is_live : 1;
 	int					cycles_to_exec;
+	struct s_args		*args;
 	struct s_process	*next;
 }						t_process;
 
@@ -106,6 +111,12 @@ typedef struct			s_flags
 	unsigned int		verbosity_sixteen : 1;
 	unsigned int		color : 1;
 }						t_flags;
+
+typedef struct			s_args
+{
+	int					arg;
+	int					type;
+}						t_args;
 
 typedef struct			s_op
 {
@@ -213,7 +224,7 @@ void					print_prog_attr(char *name, unsigned int len);
 void					print_header(t_header *header, unsigned int size);
 void					print_headers(t_player *players);
 int						print_usage(void);
-void					print_debug(t_core *core);
+// void					print_debug(t_core *core);
 void					print_processes(t_process *processes);
 int						print_prog_size_error(char *dir, int len);
 int						print_magic_error(char *dir);
@@ -234,7 +245,8 @@ void					add_process(t_process **processes, int start, int exec);
 unsigned int			get_players_size(t_player *players);
 unsigned int			get_value_from_map(void *buf, unsigned int start,
 											unsigned int len);
-int						get_next_index(int command, int value);
+int						get_next_index(t_process *process, unsigned char *map,
+										int command, int value);
 int						get_command_from_array(t_core *core, t_process *process, int key);
 
 /*

@@ -24,6 +24,7 @@ void					print_processes(t_process *processes)
 		printf("------------------PROCESS %d------------------\n", ++i);
 		printf("PC:\t\t%d\n", proc->pc);
 		printf("REG:\t\t%d\n", proc->reg[0]);
+		printf("PLAYER:\t\t%d\n", proc->player);
 		printf("ID:\t\t%d\n", proc->id);
 		proc = proc->next;
 	}

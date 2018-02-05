@@ -20,6 +20,7 @@ static void				free_process(t_core *core, t_process *process)
 		ft_printf(" %d cycles (CTD %d)\n", process->cycle, core->cycle_to_die);
 	}
 	free(process->reg);
+	free(process->args);
 	free(process);
 }
 
