@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/07 19:27:03 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/01/05 15:56:07 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:36:18 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ char	*ft_strnew(size_t size)
 {
 	void	*s;
 
-	if (!(s = (char *)malloc(size + 1)))
-		return (NULL);
+	s = (char *)ft_malloc_s(size + 1, sizeof(char));
 	size += 1;
 	while (size--)
 		*(unsigned char *)(s + size) = '\0';

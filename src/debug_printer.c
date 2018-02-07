@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:13:56 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/07 15:40:36 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:52:12 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,29 @@
 
 void	print_flags_struct(t_flags *fl)
 {
-	printf("FLAG STRUCT: \n");
-	printf("--------------------\n");
-	printf("%-20s%d\n", "flag a ==", fl->a);
-	printf("%-20s%d\n", "flag d ==", fl->d);
-	printf("%-20s%d\n", "flag s ==", fl->s);
-	printf("%-20s%d\n", "flag v ==", fl->v);
-	printf("%-20s%d\n", "flag b ==", fl->b);
-	printf("%-20s%d\n", "flag n ==", fl->n);
-	printf("--------------------\n");
+	ft_printf("FLAG STRUCT: \n");
+	ft_printf("--------------------\n");
+	ft_printf("%-20s%d\n", "flag a ==", fl->a);
+	ft_printf("%-20s%d\n", "flag d ==", fl->d);
+	ft_printf("%-20s%d\n", "flag s ==", fl->s);
+	ft_printf("%-20s%d\n", "flag v ==", fl->v);
+	ft_printf("%-20s%d\n", "flag b ==", fl->b);
+	ft_printf("%-20s%d\n", "flag n ==", fl->n);
+	ft_printf("--------------------\n");
+}
+
+void	print_map_fragment(unsigned char *map, int start, int end)
+{
+	int	i;
+
+	i = start;
+	ft_printf("Map with start from {%d} :\n\t", start);
+	while (i < end)
+	{
+		if (i != start)
+			ft_printf(" ");
+		ft_printf("%.2x", map[i]);
+		i++;
+	}
+	printf("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 21:16:44 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/01/24 21:03:20 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:39:39 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ char			**ft_strsplit(char const *s, char c)
 	{
 		words = count_words(s, c, 0);
 		i = 0;
-		if (!(res = (char **)malloc(sizeof(char *) * (words + 1))))
-			return (NULL);
+		res = (char **)ft_malloc_s(words + 1, sizeof(char *));
 		res[words] = NULL;
 		while (i < words)
 			res[i++] = get_next_split(&s, c);

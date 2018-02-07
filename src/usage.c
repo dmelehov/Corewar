@@ -6,13 +6,13 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:18:35 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/07 14:19:14 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/07 18:06:17 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-#define STR "##########################################################\n"
+#define STR "##########################################################"
 
 void	print_usage(void)
 {
@@ -40,7 +40,7 @@ void	print_usage(void)
 	ft_putendl("\t-n\t\t: Ncurses output mode");
 	ft_putendl("\t--stealth : Hides the real contents of the memory");
 	ft_putstr("#########################");
-	ft_putendl(STR);
+	M_ERROR(0, STR);
 }
 
 #undef STR

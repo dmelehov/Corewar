@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:00:09 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/07 15:40:10 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:50:31 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	print_usage(void);
 */
 
 void	print_flags_struct(t_flags *fl);
+void	print_map_fragment(unsigned char *map, int start, int end);
 
 #endif
