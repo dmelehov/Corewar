@@ -125,4 +125,5 @@ add_executable(corewar
         libft/src/string/src/ft_strtrim.c
         libft/src/additional/includes/additional.h
         libft/src/additional/src/ft_to_bin.c
+        src/op.c
         src/main.c)
