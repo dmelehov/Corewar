@@ -1,60 +1,61 @@
 NAME = corewar
 
-CC= gcc -o
-FLAGS = -Wall -Wextra -Werror -g
-LIBFT = libft/libft.a
-LIBFTPRINTF= src/ft_printf/libftprintf.a
+# ===== Libft ======
+LIBFT_DIR:= ./libft/
+LIBFT:= $(LIBFT_DIR)libft.a
+LIBFT_INC:= $(LIBFT_DIR)includes/
+LIBFT_FLAGS:= -lft -L $(LIBFT_DIR)
+# ==================
 
-SRC = src/main \
-		src/initial/init_core src/initial/init_flags \
-				src/initial/init_header src/initial/init_map \
-				src/initial/init_players src/initial/init_process \
-		src/printing/print_debug src/printing/print_errors \
-				src/printing/print_flags src/printing/print_headers \
-				src/printing/print_map src/printing/print_players \
-				src/printing/print_processes src/printing/print_prog_attr \
-		src/parsing/parse_header \
-		src/validation/validation \
-		src/reading/read_file src/reading/read_args src/reading/read_flags \
-				src/reading/read_verbosity \
-		src/addition/add_player src/addition/add_process \
-		src/getting/get_next_index src/getting/get_players_size \
-				src/getting/get_value_from_map src/getting/get_command_from_array \
-		src/other/sort_players src/other/ft_findchr \
-				src/other/put_value_on_the_map \
-				src/other/reset_players_lives \
-				src/other/kill_processes \
-		src/running/run_processes src/running/run_player src/running/run \
-		src/loading/load_players_on_the_map src/loading/load_processes \
-				src/loading/load_commands \
-		src/commands/command_add src/commands/command_aff src/commands/command_and \
-				src/commands/command_fork src/commands/command_ld \
-				src/commands/command_ldi src/commands/command_lfork \
-				src/commands/command_live src/commands/command_lld \
-				src/commands/command_lldi src/commands/command_or \
-				src/commands/command_st src/commands/command_sti \
-				src/commands/command_sub src/commands/command_xor \
-				src/commands/command_zjmp
+# ==== Standard ====
+CC:= gcc
+CFLAGS:= -Wall -Wextra -Werror
+SRC_DIR:= ./src/
+OBJ_DIR:= ./obj/
+INC_DIR:= ./includes/
+COD:= .cache_exists
+HEADER_FLAGS:= -I $(INC_DIR) -I $(LIBFT_INC)
+# ==================
 
-OBJ = $(addsuffix .o,$(SRC))
 
-all: lib vm
 
-lib:
-	@make -C ./libft
+# ===== Colors =====
+END:="\033[0;0m"
+BLACK:="\033[1;30m"
+RED:="\033[1;31m"
+GREEN:="\033[1;32m"
+CYAN:="\033[1;35m"
+PURPLE:="\033[1;36m"
+WHITE:="\033[1;37m"
+# ==================
 
-vm: $(OBJ)
-	gcc -o $(NAME) $(FLAGS) $(OBJ) $(LIBFT)
+# ===== Auto =======
+SRC:= $(wildcard $(SRC_DIR)*.c)
+OBJ:= $(addprefix $(OBJ_DIR), $(notdir $(SRC:.c=.o)))
+# ==================
 
-%.o: %.c
-	gcc $(FLAGS) -c -o $@ $< 
+# ===== Rules ======
+all: $(NAME)
+
+$(NAME): $(LIBFT) $(OBJ)
+	@$(CC) -g $(OBJ) $(LIBFT_FLAGS) -o $(NAME)
+	@echo $(CYAN) "\n- $@ is ready :)" $(END)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -c $< -o $@ $(CC_FLAGS) $(HEADER_FLAGS)
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR)	
 
 clean:
-	@make -C libft clean
-	@rm -f $(OBJ)
-	
+	@rm -rf $(OBJ_DIR)
+	@make clean -C $(LIBFT_DIR)
+
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f $(LIBFT)
+	@rm -rf $(OBJ_DIR)
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
+# ==================

@@ -4,8 +4,8 @@ project(our_corewar)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(corewar
-        include/op.h
-        include/vm.h
+        includes/op.h
+        includes/vm.h
         libft/includes/libft.h
         libft/src/array/includes/ft_array.h
         libft/src/array/src/ft_array_access.c
@@ -123,59 +123,6 @@ add_executable(corewar
         libft/src/string/src/ft_strstr.c
         libft/src/string/src/ft_strsub.c
         libft/src/string/src/ft_strtrim.c
-        src/addition/add_player.c
-        src/addition/add_process.c
-        src/commands/command_add.c
-        src/commands/command_aff.c
-        src/commands/command_and.c
-        src/commands/command_fork.c
-        src/commands/command_ld.c
-        src/commands/command_ldi.c
-        src/commands/command_lfork.c
-        src/commands/command_live.c
-        src/commands/command_lld.c
-        src/commands/command_lldi.c
-        src/commands/command_or.c
-        src/commands/command_st.c
-        src/commands/command_sti.c
-        src/commands/command_sub.c
-        src/commands/command_xor.c
-        src/commands/command_zjmp.c
-        src/getting/get_command_from_array.c
-        src/getting/get_next_index.c
-        src/getting/get_players_size.c
-        src/getting/get_value_from_map.c
-        src/initial/init_core.c
-        src/initial/init_flags.c
-        src/initial/init_header.c
-        src/initial/init_map.c
-        src/initial/init_players.c
-        src/initial/init_process.c
-        src/loading/load_commands.c
-        src/loading/load_players_on_the_map.c
-        src/loading/load_processes.c
-        src/other/ft_findchr.c
-        src/other/kill_processes.c
-        src/other/put_value_on_the_map.c
-        src/other/reset_players_lives.c
-        src/other/sort_players.c
-        src/parsing/parse_header.c
-        src/printing/print_debug.c
-        src/printing/print_errors.c
-        src/printing/print_flags.c
-        src/printing/print_headers.c
-        src/printing/print_map.c
-        src/printing/print_players.c
-        src/printing/print_processes.c
-        src/printing/print_prog_attr.c
-        src/reading/read_args.c
-        src/reading/read_file.c
-        src/reading/read_flags.c
-        src/reading/read_verbosity.c
-        src/running/run.c
-        src/running/run_player.c
-        src/running/run_processes.c
-        src/validation/validation.c
         libft/src/additional/includes/additional.h
         libft/src/additional/src/ft_to_bin.c
         src/main.c)

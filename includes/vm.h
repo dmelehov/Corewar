@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_command_from_array.c                           :+:      :+:    :+:   */
+/*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhadiats <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/04 18:23:01 by rhadiats          #+#    #+#             */
-/*   Updated: 2018/01/04 18:23:03 by rhadiats         ###   ########.fr       */
+/*   Created: 2018/02/07 13:00:09 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/07 13:02:10 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/vm.h"
+#ifndef	VM_H
+# define VM_H
 
-int						get_command_from_array(t_core *core, t_process *process, int key)
-{
-	load_commands();
-	return ((key >= 0 && key <= 15) ? (*g_commands[key - 1])(core, process) : 0);
-}
+# include "op.h"
+# include "../libft/includes/libft.h"
+
+
+
+
+
+
+#endif
