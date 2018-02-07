@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 20:52:20 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/01/30 15:21:19 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/07 13:55:18 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_malloc_s(size_t nbr, size_t size)
 	if (size == 0 || nbr == 0 || nbr > SIZE_MAX / size)
 		M_ERROR(-1, "Bad size malloc");
 	if (!(mem = malloc(size * nbr)))
-		M_ERROR(-1, "Malloc allocation error");
+		M_ERROR(-1, "Malloc performing error");
 	return (mem);
 }
 
@@ -28,7 +28,7 @@ void	*ft_realloc_s(void *ptr, size_t nbr, size_t size)
 {
 	void	*mem;
 
-	mem = ft_realloc(ptr, nbr * size);
+	mem = realloc(ptr, nbr * size);
 	if (size == 0 || nbr == 0 || nbr > SIZE_MAX / size)
 		M_ERROR(-1, "Bad size realloc");
 	if (!ptr)

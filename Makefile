@@ -43,7 +43,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) -c $< -o $@ $(CC_FLAGS) $(HEADER_FLAGS)
+	@$(CC) -c $< -o $@ $(HEADER_FLAGS)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)	
