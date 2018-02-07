@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   vm_structs.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/07 13:00:09 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/07 15:40:10 by dmelehov         ###   ########.fr       */
+/*   Created: 2018/02/07 14:51:36 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/07 15:37:34 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VM_H
-# define VM_H
+#ifndef VM_STRUCTS_H
+# define VM_STRUCTS_H
 
-# include "op.h"
-# include "../libft/includes/libft.h"
-# include "vm_structs.h"
+# define FLAGS_INIT (t_flags){0,0,0,0,0,0}
 
-/*
-** usage.c
-*/
+typedef struct	s_flags
+{
+	int			a;
+	int			d;
+	int			s;
+	int			v;
+	int			b;
+	int			n;
+}				t_flags;
 
-void	print_usage(void);
-
-/*
-** debug_printer.c
-*/
-
-void	print_flags_struct(t_flags *fl);
+typedef	struct	s_vm
+{
+	t_flags		*flags;
+}				t_vm;
 
 #endif
