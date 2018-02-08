@@ -47,6 +47,7 @@ void	check_arguments(t_vm *vm, int ac, char **av)
 
 	i = 0;
 	j = 0;
+	parse_flags(vm, ac, av);
 	print_flags_struct(vm->flags);
 	print_map_fragment(vm->map, 0, 8);
 	printf("ac == %d\n", ac);

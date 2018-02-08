@@ -29,5 +29,6 @@ void	print_usage(void);
 
 void	print_flags_struct(t_flags *fl);
 void	print_map_fragment(unsigned char *map, int start, int end);
+void	parse_flags(t_vm *vm, int ac, char **av);
 
 #endif

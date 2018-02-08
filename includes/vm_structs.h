@@ -13,7 +13,7 @@
 #ifndef VM_STRUCTS_H
 # define VM_STRUCTS_H
 
-# define FLAGS_INIT (t_flags){0,0,0,0,0,0}
+# define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
 
 typedef struct		s_players
 {
