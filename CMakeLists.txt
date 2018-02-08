@@ -132,4 +132,5 @@ add_executable(corewar
         src/debug_printer.c
         src/op.c
         src/main.c
-        src/parse_flags.c)
+        src/parse_flags.c
+        src/is_flag.c)
