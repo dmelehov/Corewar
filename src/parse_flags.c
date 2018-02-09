@@ -1,6 +1,6 @@
 #include "../includes/vm.h"
 
-void	check_a_flag(t_vm *vm, int ac, char **av)
+static void	check_a_flag(t_vm *vm, int ac, char **av)
 {
 	int 	i;
 
@@ -10,7 +10,7 @@ void	check_a_flag(t_vm *vm, int ac, char **av)
 			vm->flags->a = 1;
 }
 
-void	check_d_flag(t_vm *vm, int ac, char **av)
+static void	check_d_flag(t_vm *vm, int ac, char **av)
 {
 	int 	i;
 
@@ -24,7 +24,7 @@ void	check_d_flag(t_vm *vm, int ac, char **av)
 		}
 }
 
-void	check_s_flag(t_vm *vm, int ac, char **av)
+static void	check_s_flag(t_vm *vm, int ac, char **av)
 {
 	int 	i;
 
@@ -38,7 +38,7 @@ void	check_s_flag(t_vm *vm, int ac, char **av)
 		}
 }
 
-void	check_v_flag(t_vm *vm, int ac, char **av)
+static void	check_v_flag(t_vm *vm, int ac, char **av)
 {
 	int 	i;
 
@@ -52,7 +52,7 @@ void	check_v_flag(t_vm *vm, int ac, char **av)
 		}
 }
 
-void	check_b_flag(t_vm *vm, int ac, char **av)
+static void	check_b_flag(t_vm *vm, int ac, char **av)
 {
 	int 	i;
 
@@ -62,7 +62,7 @@ void	check_b_flag(t_vm *vm, int ac, char **av)
 			vm->flags->b = 1;
 }
 
-void	check_n_flag(t_vm *vm, int ac, char **av)
+static void	check_n_flag(t_vm *vm, int ac, char **av)
 {
 	int 	i;
 
