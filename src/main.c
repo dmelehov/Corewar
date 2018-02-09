@@ -6,26 +6,11 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:02:30 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/08 12:34:13 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/08 16:30:33 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
-
-void	get_champions_data(t_vm *vm, char *str, int count)
-{
-	char	*s;
-	char	*name;
-
-	if (count >= 4)
-		M_ERROR(-1, "Too many champions");
-	if (!(s = ft_strrchr(str, '/')))
-		name = ft_strsub(str, 0, ft_strrchr(str, '.') - str);
-	else
-		name = ft_strsub(s + 1, 0, (ft_strrchr(str, '.') - s - 1));
-	(vm->players)[count].name = name;
-	printf("{%s}\n", (vm->players)[count].name);
-}
 
 bool	check_champion(char *str)
 {
@@ -55,7 +40,6 @@ void	check_arguments(t_vm *vm, int ac, char **av)
 	{
 		if (check_champion(av[i]))
 		{
-			printf("We've got a champion with name: \n");
 			get_champions_data(vm, av[i], j);
 			j++;
 		}
