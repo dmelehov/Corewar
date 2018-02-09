@@ -40,3 +40,18 @@ void	print_map_fragment(unsigned char *map, int start, int end)
 	}
 	printf("\n");
 }
+
+void	print_map(unsigned char *map)
+{
+	int		i;
+
+	i = -1;
+	ft_printf("0x0000 :");
+	while (++i < 4096)
+	{
+		if (i && !(i % 64))
+			ft_printf("\n%#06x :", i);
+		ft_printf(" %02x", map[i]);
+	}
+	ft_printf("\n");
+}

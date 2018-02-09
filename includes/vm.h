@@ -29,6 +29,7 @@ void	print_usage(void);
 
 void	print_flags_struct(t_flags *fl);
 void	print_map_fragment(unsigned char *map, int start, int end);
+void	print_map(unsigned char *map);
 
 /*
 ** parse_flags.c
