@@ -43,4 +43,10 @@ void	parse_flags(t_vm *vm, int ac, char **av);
 bool	is_flag(char *av);
 int 	flag_attr(char *av);
 
+/*
+** parse_player_data.c
+*/
+
+void	get_champions_data(t_vm *vm, char *str, int count);
+
 #endif

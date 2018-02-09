@@ -17,6 +17,7 @@
 
 typedef struct		s_players
 {
+	t_header		*header;
 	char			*name;
 	char			*comment;
 	int				num;
