@@ -38,7 +38,9 @@ void	check_arguments(t_vm *vm, int ac, char **av)
 	printf("ac == %d\n", ac);
 	while (i < ac)
 	{
-		if (check_champion(av[i]))
+		if (is_flag(av[i]))
+			i += flag_attr(av[i]);
+		else if (check_champion(av[i]))
 		{
 			get_champions_data(vm, av[i], j);
 			j++;
