@@ -15,3 +15,4 @@ libft/libft.a
 libft/.cache_exists
 champs/
 a.out
+test.c
