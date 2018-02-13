@@ -6,57 +6,54 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:28:46 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/08 16:57:17 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/09 19:46:47 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-#define FILE_MAX_LEN (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
-
-static int	get_magic(unsigned char *s)
-{
-	int magic;
-
-	magic = s[0] << 24;
-	magic += s[1] << 16;
-	magic += s[2] << 8;
-	magic += s[3];
-
-	printf("The fucking magic num is : {%#x}\n", magic);
-	return (magic);
-}
+#define START_POSITION (MEM_SIZE/vm->pl_q * p->num)
+#define PROC pl->proc
 
 static void	check_champ_size(char *path, int len)
 {
-	if (len <  0)
+	if (len <=  0)
 	{
 		ft_printf("Error: File champs is too small to be a champion");
 		M_ERROR(-1, "");
 	}
-	else if (len - FILE_MAX_LEN > CHAMP_MAX_SIZE)
+	else if (len - HEADER > CHAMP_MAX_SIZE)
 	{
 		ft_printf("Error: File %s has too large a code (%d bytes > 682 bytes)", path, len);
 		M_ERROR(-1, "");
 	}
 }
 
-static t_header *init_header_struct(unsigned char *data, int len)
+static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
 {
-	t_header	*hd;
+	t_proc	*p;
 
-	hd = (t_header *)ft_malloc_s(1, sizeof(t_header));
-	hd->magic = COREWAR_EXEC_MAGIC;
-	ft_bzero(hd->prog_name, PROG_NAME_LENGTH + 1);
-	ft_memcpy(hd->prog_name, data + 4, PROG_NAME_LENGTH);
-	ft_bzero(hd->comment, PROG_NAME_LENGTH + 12);
-	ft_memcpy(hd->comment, data + PROG_NAME_LENGTH + 12,  COMMENT_LENGTH);
-	printf("Prog name == %s\n", hd->prog_name);
-	printf("Comment == %s\n", hd->comment);
-	return (hd);
+	p = (t_proc *)ft_malloc_s(1, sizeof(t_proc));
+	p->pc = start;
+	ft_bzero(p->reg, 64);
+	p->reg[0] = PL_NUM - pl->num;
+	ft_bzero(p->arg, 12);
+	p->wait = 0;
+	p->cur_cmd = 0;
+	p->carry = 0;
+	p->next = NULL;
+	if (PROC == NULL)
+	{
+		PROC = p;
+		return (p);
+	}
+	while(PROC->next)
+		PROC = PROC->next;
+	PROC->next = p;
+	return (p);
 }
 
-static void	read_champ_data(t_vm *vm, char *str, int count)
+void	read_champ_data(t_vm *vm, char *str, t_players *p)
 {
 	int	fd;
 	int len;
@@ -64,36 +61,14 @@ static void	read_champ_data(t_vm *vm, char *str, int count)
 
 	if ((fd = open(str, O_RDONLY)) < 3)
 		M_ERROR(-1, ft_strjoin("Can't read source file ", str));
-	len = lseek(fd, 0, SEEK_END);
+	len = (int)lseek(fd, 0, SEEK_END);
 	lseek(fd, 0, SEEK_SET);
 	check_champ_size(str, len);
 	s = (unsigned char *)ft_strnew(len);
 	if (read(fd, s, len) <= 0)
 		M_ERROR(-1, ft_strjoin("Can't read source file ", str));
-	if (get_magic(s) != COREWAR_EXEC_MAGIC)
-		M_ERROR(-1, "Nahuj takih chempionov bez magii");
-	vm->players[count].header = init_header_struct(s, len);
-	printf("START POSITION == {%d}\n", (MEM_SIZE/vm->pl_q * count));
-	ft_memcpy(vm->map + (MEM_SIZE/vm->pl_q * count), s + FILE_MAX_LEN, len - FILE_MAX_LEN);
-
-//	ft_printf("Error: %s has an invalid header\n", str);
-
-
-
-}
-
-void	get_champions_data(t_vm *vm, char *str, int count)
-{
-	char	*s;
-	char	*name;
-
-	if (count >= 4)
-		M_ERROR(-1, "Too many champions");
-	if (!(s = ft_strrchr(str, '/')))
-		name = ft_strsub(str, 0, ft_strrchr(str, '.') - str);
-	else
-		name = ft_strsub(s + 1, 0, (ft_strrchr(str, '.') - s - 1));
-	(vm->players)[count].name = name;
-	printf("The champion name is {%s}\n", (vm->players)[count].name);
-	read_champ_data(vm, str, count);
+	p->header = init_header_struct(s, len);
+	p->proc = NULL;
+	ft_memcpy(vm->map + START_POSITION, s + HEADER, len - HEADER);
+	p->proc = init_proc(vm, p, START_POSITION);
 }

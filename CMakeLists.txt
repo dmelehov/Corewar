@@ -135,5 +135,6 @@ add_executable(corewar
         src/parse_flags.c
         src/is_flag.c
         src/parse_player_data.c
-        src/play_game.c
-        src/run_cycle.c)
+#        src/play_game.c
+#        src/run_cycle.c)
+        src/init_header.c src/game_cycle.c)

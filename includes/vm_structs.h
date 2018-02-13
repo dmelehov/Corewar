@@ -6,21 +6,34 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:36 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/08 14:36:50 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/09 19:45:36 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_STRUCTS_H
 # define VM_STRUCTS_H
 
+# define PL_NUM 0xffffffff
 # define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
+#define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
+
+typedef struct		s_proc
+{
+	int				pc;
+	int 			reg[16];
+	int 			arg[3];
+	int 			cur_cmd;
+	int 			wait;
+	int 			carry;
+	struct s_proc	*next;
+}					t_proc;
 
 typedef struct		s_players
 {
-	t_header		*header;
-	char			*name;
-	char			*comment;
 	int				num;
+	t_proc			*proc;
+	t_header		*header;
+	struct s_players	*next;
 }					t_players;
 
 typedef struct		s_flags
@@ -38,7 +51,21 @@ typedef	struct		s_vm
 	unsigned char	*map;
 	int				pl_q;
 	t_flags			*flags;
-	t_players		players[4];
+	t_players		*pls;
+	int				cycles;
+	int 			cycles_to_dye;
+	int				no_one_alive;
 }					t_vm;
+
+/*
+ * .COR STRUCTURE
+ * 4	magic
+ * PROG_NAME_LENGTH
+ * '\0' + 3 bytes on NULL
+ * 4	size of executable code
+ * COMMENT_LENGTH
+ * '\0' + 3 bytes on NULL
+ * executable code
+ */
 
 #endif
