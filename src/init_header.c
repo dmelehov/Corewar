@@ -15,30 +15,19 @@
  * executable code
  */
 
-int	get_magic(unsigned char *s)
-{
-	int magic;
-
-	magic = s[0] << 24;
-	magic += s[1] << 16;
-	magic += s[2] << 8;
-	magic += s[3];
-	return (magic);
-}
-
 t_header 	*init_header_struct(unsigned char *data, int len)
 {
 	t_header	*hd;
 
 	hd = (t_header *)ft_malloc_s(1, sizeof(t_header));
-	hd->magic = get_magic(data);
+	hd->magic = get_magic(data, 0, 4);
 	if (hd->magic != COREWAR_EXEC_MAGIC)
 		M_ERROR(-1, "Nahuj takih chempionov bez magii");
 	if (ft_strlen((char*)(data + 4)) >  PROG_NAME_LENGTH)
 		M_ERROR(-1, "Too big champion name.");
 	ft_bzero(hd->prog_name, PROG_NAME_LENGTH + 1);
 	ft_memcpy(hd->prog_name, data + 4, PROG_NAME_LENGTH);
-	hd->prog_size = get_magic(data + PROG_NAME_LENGTH + 8);
+	hd->prog_size = get_magic(data, PROG_NAME_LENGTH + 8, 4);
 	if (ft_strlen((char*)(data + PROG_NAME_LENGTH + 12)) > COMMENT_LENGTH)
 		M_ERROR(-1, "Too big comment.");
 	ft_bzero(hd->comment, PROG_NAME_LENGTH + 12);

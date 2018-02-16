@@ -12,6 +12,21 @@
 
 #include "../includes/vm.h"
 
+
+void	print_player_struct(t_players *p)
+{
+	while (p)
+	{
+		ft_printf("{cyan}PLAYER STRUCT: \n");
+		ft_printf("--------------------\n");
+		ft_printf("%-20s%d\n", "num ==", p->num);
+		ft_printf("%-20s%d\n", "turn ==", p->turn);
+		ft_printf("%-20s%d\n", "live ==", p->live);
+		ft_printf("--------------------\n");
+		p = p->next;
+	}
+}
+
 void	print_header_struct(t_header *h)
 {
 	ft_printf("{yellow}HEADER STRUCT: \n");
@@ -23,21 +38,27 @@ void	print_header_struct(t_header *h)
 	ft_printf("--------------------\n{eoc}");
 }
 
-void	print_proc_struct(t_proc *proc)
+void	print_arguments(int *arg)
+{
+	int i;
+
+	i = 0;
+	ft_printf("{magenta}Arguments :\n\t");
+	while (i < 3)
+		ft_printf("[%x]", arg[i++]);
+	ft_printf("\n{eoc}\n");
+}
+
+void	print_registry(int *reg)
 {
 	int i;
 	int j;
 
 	i = 0;
-	j = 0;
-	ft_printf("{blue}PROC STRUCT: {eoc}\n");
-	ft_printf("--------------------\n");
-	ft_printf("{yellow}");
-	ft_printf("%-20s{%d}\n{eoc}\n", "carret_position ==", proc->pc);
 	ft_printf("{green}Registry :\n\t");
 	while (i < 16)
 	{
-		ft_printf("[%x]", proc->reg[i++]);
+		ft_printf("[%x]", reg[i++]);
 		if (i % 4 == 0)
 		{
 			ft_printf("\n");
@@ -47,11 +68,17 @@ void	print_proc_struct(t_proc *proc)
 		}
 	}
 	ft_printf("\n{eoc}");
-	i = 0;
-	ft_printf("{magenta}Arguments :\n\t");
-	while (i < 3)
-		ft_printf("[%x]", proc->arg[i++]);
-	ft_printf("\n{eoc}\n");
+}
+
+void	print_proc_struct(t_proc *proc)
+{
+	ft_printf("{blue}PROC STRUCT: {eoc}\n");
+	ft_printf("--------------------\n");
+	print_arguments(proc->arg);
+	print_registry(proc->reg + 1);
+	ft_printf("{yellow}");
+	ft_printf("%-20s{%d}\n", "Process NUM ==", proc->num);
+	ft_printf("%-20s{%d}\n{eoc}\n", "carret_position ==", proc->pc);
 	ft_printf("{yellow}");
 	ft_printf("%-20s[%.2x]\n", "cur_cmd ==", proc->cur_cmd);
 	ft_printf("%-20s%d\n", "wait ==", proc->wait);
@@ -78,17 +105,20 @@ void	print_map_fragment(unsigned char *map, int start, int end)
 {
 	int	i;
 
-	i = start;
-	ft_printf("{cyan}Map with start from {%d} :\n\t", start);
-	while (i < end)
+	i = start % MEM_SIZE;
+	ft_printf("{cyan}Map with start from {%d} :\n\t", i);
+	while (i != end)
 	{
 		if (i != start)
 			ft_printf(" ");
+		i = i % MEM_SIZE;
+		if (i < 0)
+			i += MEM_SIZE;
 		ft_printf("{%.2x}", map[i]);
 		i++;
 	}
 	ft_printf("{eoc}\n");
-	ft_printf("--------------------\n\n");
+	ft_printf("--------------------\n");
 }
 
 void	print_map(unsigned char *map)

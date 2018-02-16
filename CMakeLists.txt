@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 project(our_corewar)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C99_STANDARD 11)
 
 add_executable(corewar
         includes/op.h
@@ -135,6 +135,4 @@ add_executable(corewar
         src/parse_flags.c
         src/is_flag.c
         src/parse_player_data.c
-#        src/play_game.c
-#        src/run_cycle.c)
-        src/init_header.c src/game_cycle.c)
+        src/init_header.c src/game_cycle.c src/operations.c src/op_st.c src/service.c src/op_ld.c src/op_live.c src/op_fork.c src/op_sub.c src/op_add.c src/op_zjmp.c)

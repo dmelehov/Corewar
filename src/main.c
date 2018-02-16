@@ -28,8 +28,10 @@ void		swap_players(t_players *p)
 t_players	*sort_players(t_players *p)
 {
 	t_players *tmp;
+	int j;
 
 	tmp = p;
+	j = -1;
 	while (tmp->next)
 		tmp = tmp->next;
 	swap_players(p);
@@ -43,7 +45,7 @@ void	get_champions(t_vm *vm, char *path, int num)
 
 	tmp = vm->pls;
 	p = (t_players *)ft_malloc_s(1, sizeof(t_players));
-	*p = (t_players){num, NULL, NULL, NULL};
+	*p = (t_players){PL_NUM - num, 0, 0, NULL, NULL, NULL};
 	if (!tmp)
 	{
 		vm->pls = p;
@@ -108,6 +110,27 @@ t_flags	*init_flags_struct(void)
 	return (flags);
 }
 
+void	init_funct_array(t_vm *vm)
+{
+	vm->op[0] = NULL;
+	vm->op[1] = &op_live;
+	vm->op[2] = &op_ld;
+	vm->op[3] = &op_st;
+	vm->op[4] = &op_add;
+	vm->op[5] = &op_sub;
+	vm->op[6] = &op_and;
+	vm->op[7] = &op_or;
+	vm->op[8] = &op_xor;
+	vm->op[9] = &op_zjmp;
+	vm->op[10] = &op_ldi;
+	vm->op[11] = &op_sti;
+	vm->op[12] = &op_fork;
+	vm->op[13] = &op_lld;
+	vm->op[14] = &op_lldi;
+	vm->op[15] = &op_lfork;
+	vm->op[16] = &op_aff;
+}
+
 t_vm	*init_vm_struct(int ac, char **av)
 {
 	t_vm	*vm;
@@ -120,6 +143,7 @@ t_vm	*init_vm_struct(int ac, char **av)
 	vm->cycles_to_dye = CYCLE_TO_DIE;
 	vm->cycles = 0;
 	vm->no_one_alive = 0;
+	init_funct_array(vm);
 	return (vm);
 }
 
@@ -157,6 +181,7 @@ int		main(int ac, char **av)
 	vm = init_vm_struct(ac, av);
 	check_arguments(vm, ac, av);
 	game_cycle(vm);
-	printer_nah(vm);
+//	print_player_struct(vm->pls);
+//	printer_nah(vm);
 	return (0);
 }

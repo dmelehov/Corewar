@@ -32,6 +32,9 @@ void	print_map_fragment(unsigned char *map, int start, int end);
 void	print_map(unsigned char *map);
 void	print_proc_struct(t_proc *proc);
 void	print_header_struct(t_header *h);
+void	print_player_struct(t_players *p);
+void	print_registry(int *reg);
+void	print_arguments(int *arg);
 
 /*
 ** parse_flags.c
@@ -57,13 +60,46 @@ void	read_champ_data(t_vm *vm, char *str, t_players *p);
 */
 
 t_header	*init_header_struct(unsigned char *data, int len);
-int			get_magic(unsigned char *s);
+int			get_magic(unsigned char *s,int start, int len);
 
 /*
 ** game_cycle.c
 */
 
 void 		game_cycle(t_vm *vm);
+
+/*
+** operations.c
+*/
+
+void	update_map(t_vm *vm, t_proc *p, int r, int adr);
+int		move_carret(t_proc *p, int cmd);
+int		get_ind_value(t_vm *vm, t_proc *p, int pos);
+
+
+void	op_live(t_vm *vm, t_proc *p);
+void	op_ld(t_vm *vm, t_proc *p);
+void	op_st(t_vm *vm, t_proc *p);
+void	op_add(t_vm *vm, t_proc *p);
+void	op_sub(t_vm *vm, t_proc *p);
+void	op_and(t_vm *vm, t_proc *p);
+void	op_or(t_vm *vm, t_proc *p);
+void	op_xor(t_vm *vm, t_proc *p);
+void	op_zjmp(t_vm *vm, t_proc *p);
+void	op_ldi(t_vm *vm, t_proc *p);
+void	op_sti(t_vm *vm, t_proc *p);
+void	op_fork(t_vm *vm, t_proc *p);
+void	op_lld(t_vm *vm, t_proc *p);
+void	op_lldi(t_vm *vm, t_proc *p);
+void	op_lfork(t_vm *vm, t_proc *p);
+void	op_aff(t_vm *vm, t_proc *p);
+
+
+void		set_args_data(t_vm *vm, t_proc *p);
+
+/*
+** op_st.c
+*/
 
 
 #endif

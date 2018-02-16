@@ -6,14 +6,13 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:28:46 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/09 19:46:47 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/16 07:37:51 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-#define START_POSITION (MEM_SIZE/vm->pl_q * p->num)
-#define PROC pl->proc
+#define START_POSITION (MEM_SIZE/vm->pl_q * (PL_NUM - p->num))
 
 static void	check_champ_size(char *path, int len)
 {
@@ -34,22 +33,15 @@ static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
 	t_proc	*p;
 
 	p = (t_proc *)ft_malloc_s(1, sizeof(t_proc));
+	p->num = 1;
 	p->pc = start;
-	ft_bzero(p->reg, 64);
-	p->reg[0] = PL_NUM - pl->num;
+	ft_bzero(p->reg, 68);
+	p->reg[1] = pl->num;
 	ft_bzero(p->arg, 12);
 	p->wait = 0;
 	p->cur_cmd = 0;
 	p->carry = 0;
 	p->next = NULL;
-	if (PROC == NULL)
-	{
-		PROC = p;
-		return (p);
-	}
-	while(PROC->next)
-		PROC = PROC->next;
-	PROC->next = p;
 	return (p);
 }
 

@@ -4,19 +4,42 @@
 
 #include "../includes/vm.h"
 
-static void		get_command_data(t_vm *vm, int i, t_proc *p)
+
+static void		executor(t_vm *vm, t_proc *p, int i)
 {
-	p->cur_cmd = g_op_tab[i - 1].opcode;
-	p->wait = g_op_tab[i - 1].cost;
-	p->arg[0] = (vm->map[p->pc + 1] & 0xc0) >> 6;
-	p->arg[1] = (vm->map[p->pc + 1] & 0x30) >> 4;
-	p->arg[2] = (vm->map[p->pc + 1] & 0x0c) >> 2;
+
+	if (p->wait != 0)
+	{
+		p->wait -= 1;
+		if (p->wait != 0)
+			return ;
+	}
+	if (i > 0 && i < 17)
+	{
+		ft_printf("{red|b}cycle == {%d}{eoc}\n", vm->cycles);
+		if (vm->cycles > PR_LIM && ft_printf("{green|b}Before cmd{eoc}\n"))
+			print_proc_struct(p);
+		vm->op[i](vm, p);
+		if (vm->cycles > PR_LIM && ft_printf("{blue|b}After cmd{eoc}\n"))
+			print_proc_struct(p);
+	}
+	p->cur_cmd = 0;
+	ft_bzero(p->arg, 12);
 }
 
-static void		get_process_data(t_vm *vm, t_proc *p)
+static void		set_process_data(t_vm *vm, t_proc *p)
 {
-	if (vm->map[p->pc] < 16 && vm->map[p->pc] > 0)
-		get_command_data(vm, vm->map[p->pc], p);
+	int	i;
+
+	i = vm->map[p->pc];
+	if (p->wait != 0)
+		return ;
+	else if (i > 0 && i < 17)
+	{
+		p->wait = g_op_tab[i - 1].cost;
+		p->cur_cmd = g_op_tab[i - 1].opcode;
+		set_args_data(vm, p);
+	}
 }
 
 static void	game_processor(t_vm *vm, t_players *pl)
@@ -26,7 +49,9 @@ static void	game_processor(t_vm *vm, t_players *pl)
 	pr = pl->proc;
 	while (pr)
 	{
-		get_process_data(vm, pr);
+		if (!pr->cur_cmd)
+			set_process_data(vm, pr);
+		executor(vm, pr, vm->map[pr->pc]);
 		pr = pr->next;
 	}
 }
@@ -37,15 +62,18 @@ void 	game_cycle(t_vm *vm)
 
 	while (vm->cycles_to_dye && vm->no_one_alive != 1)
 	{
+		vm->cycles += 1;
+		if (vm->cycles % vm->cycles_to_dye == 0)
+			vm->cycles_to_dye -= CYCLE_DELTA;
 		pl = vm->pls;
 		while (pl)
 		{
+			pl->turn = 1;
 			game_processor(vm, pl);
+			pl->turn = 0;
 			pl = pl->next;
 		}
-		vm->cycles += 1;
-		vm->cycles_to_dye -= 1;
-		if (vm->cycles == 10)
+		if (vm->cycles == GAME_LIM)
 			break ;
 	}
 }
