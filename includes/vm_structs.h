@@ -14,8 +14,8 @@
 # define VM_STRUCTS_H
 
 # define PL_NUM 0xffffffff
-# define PR_LIM 930
-# define GAME_LIM 950
+# define PR_LIM 1000
+# define GAME_LIM 2850
 # define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
 #define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 
@@ -36,6 +36,7 @@ typedef struct		s_players
 	int				num;
 	int 			turn;
 	int 			live;
+	int 			llc;
 	t_proc			*proc;
 	t_header		*header;
 	struct s_players	*next;
@@ -60,7 +61,7 @@ typedef	struct		s_vm
 	t_players		*pls;
 	int				cycles;
 	int 			cycles_to_dye;
-	int				no_one_alive;
+	int				proc_alive;
 }					t_vm;
 
 /*

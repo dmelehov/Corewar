@@ -45,7 +45,7 @@ void	get_champions(t_vm *vm, char *path, int num)
 
 	tmp = vm->pls;
 	p = (t_players *)ft_malloc_s(1, sizeof(t_players));
-	*p = (t_players){PL_NUM - num, 0, 0, NULL, NULL, NULL};
+	*p = (t_players){PL_NUM - num, 0, 0, 0, NULL, NULL, NULL};
 	if (!tmp)
 	{
 		vm->pls = p;
@@ -142,7 +142,7 @@ t_vm	*init_vm_struct(int ac, char **av)
 	vm->pls = NULL;
 	vm->cycles_to_dye = CYCLE_TO_DIE;
 	vm->cycles = 0;
-	vm->no_one_alive = 0;
+	vm->proc_alive = vm->pl_q;
 	init_funct_array(vm);
 	return (vm);
 }

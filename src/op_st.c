@@ -23,9 +23,11 @@ void	op_st(t_vm *vm, t_proc *p)
 	else if (p->arg[0] == REG_CODE && p->arg[1] == IND_CODE
 			 && r[2])
 	{
-		adr = get_ind_value(vm, p, 3);
-		update_map(vm, p, r[0], adr);
-		adr -= p->pc;
+		adr =(short)get_magic(vm->map, p->pc + 3, 2);
+//		adr = get_ind_value(vm, p, 3);
+//		printf("ADR == %d\n", adr);
+		update_map(vm, p, r[0], (adr + p->pc) % MEM_SIZE);
+//		adr += p->pc;
 	}
 	printf("P    %d | st r%d %d\n", p->num, r[0], adr);
 	p->pc = (p->pc + move_carret(p, p->cur_cmd)) % MEM_SIZE;

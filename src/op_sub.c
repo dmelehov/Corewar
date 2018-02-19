@@ -16,10 +16,11 @@ void	op_sub(t_vm *vm, t_proc *p)
 		&& r[0] > 0 && r[1] > 0 && r[2] > 0)
 	{
 		p->reg[r[2]] = p->reg[r[0]] - p->reg[r[1]];
-		p->carry = 1;
+//		p->carry = 1;
 	}
-	else
-		p->carry = 0;
+//	else
+//		p->carry = 0;
+	p->carry = (p->carry == 0 ? 1 : 0);
 	printf("P %d | sub r%d r%d r%d\n", p->num, r[0], r[1], r[2]);
 	p->pc = (p->pc + move_carret(p, p->cur_cmd)) % MEM_SIZE;
 }

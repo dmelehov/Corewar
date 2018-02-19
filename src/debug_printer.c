@@ -105,15 +105,19 @@ void	print_map_fragment(unsigned char *map, int start, int end)
 {
 	int	i;
 
+	while (start < 0)
+		start+= MEM_SIZE;
+	while (end < 0)
+		end += MEM_SIZE;
 	i = start % MEM_SIZE;
 	ft_printf("{cyan}Map with start from {%d} :\n\t", i);
-	while (i != end)
+	while (i < end)
 	{
 		if (i != start)
 			ft_printf(" ");
 		i = i % MEM_SIZE;
-		if (i < 0)
-			i += MEM_SIZE;
+//		if (i < 0)
+//			i += MEM_SIZE;
 		ft_printf("{%.2x}", map[i]);
 		i++;
 	}

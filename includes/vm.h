@@ -75,6 +75,7 @@ void 		game_cycle(t_vm *vm);
 void	update_map(t_vm *vm, t_proc *p, int r, int adr);
 int		move_carret(t_proc *p, int cmd);
 int		get_ind_value(t_vm *vm, t_proc *p, int pos);
+int		calc_shift(t_proc *p, int cmd, int max_i);
 
 
 void	op_live(t_vm *vm, t_proc *p);

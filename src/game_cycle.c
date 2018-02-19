@@ -23,6 +23,8 @@ static void		executor(t_vm *vm, t_proc *p, int i)
 		if (vm->cycles > PR_LIM && ft_printf("{blue|b}After cmd{eoc}\n"))
 			print_proc_struct(p);
 	}
+	else
+		p->pc = (p->pc + 1) % MEM_SIZE;
 	p->cur_cmd = 0;
 	ft_bzero(p->arg, 12);
 }
@@ -60,11 +62,15 @@ void 	game_cycle(t_vm *vm)
 {
 	t_players *pl;
 
-	while (vm->cycles_to_dye && vm->no_one_alive != 1)
+	while (vm->cycles_to_dye && vm->proc_alive)
 	{
 		vm->cycles += 1;
+
 		if (vm->cycles % vm->cycles_to_dye == 0)
+		{
 			vm->cycles_to_dye -= CYCLE_DELTA;
+		}
+
 		pl = vm->pls;
 		while (pl)
 		{
