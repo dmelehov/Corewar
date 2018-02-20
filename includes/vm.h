@@ -61,6 +61,7 @@ void	read_champ_data(t_vm *vm, char *str, t_players *p);
 
 t_header	*init_header_struct(unsigned char *data, int len);
 int			get_magic(unsigned char *s,int start, int len);
+int 		get_arg_value(t_vm *vm, t_proc *p, int an);
 
 /*
 ** game_cycle.c
@@ -95,12 +96,16 @@ void	op_lldi(t_vm *vm, t_proc *p);
 void	op_lfork(t_vm *vm, t_proc *p);
 void	op_aff(t_vm *vm, t_proc *p);
 
+/*
+** argument_manager.c
+*/
+
+int		arg_checker(t_vm *vm, t_proc *p);
+
 
 void		set_args_data(t_vm *vm, t_proc *p);
 
-/*
-** op_st.c
-*/
+
 
 
 #endif

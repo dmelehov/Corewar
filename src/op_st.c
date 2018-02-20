@@ -6,29 +6,18 @@
 
 void	op_st(t_vm *vm, t_proc *p)
 {
-	int r[4];
 	int adr;
 
-	set_args_data(vm, p);
-	r[0] = (vm->map[(p->pc + 2) % MEM_SIZE]);
-	r[1] = (vm->map[(p->pc + 3) % MEM_SIZE]);
-	r[2] = (r[0] > 0 && r[0] <= REG_NUMBER);
-	r[3] = (r[1] > 0 && r[1] <= REG_NUMBER);
-	if (p->arg[0] == REG_CODE && p->arg[1] == REG_CODE
-		&& r[2] && r[3])
+	if (arg_checker(vm, p))
 	{
-		p->reg[r[1]] = p->reg[r[0]];
-		adr = r[1];
+		if (p->arg[1] == REG_CODE)
+			p->reg[p->arg_v[1]]  = p->reg[p->arg_v[0]];
+		else if (p->arg[1] == IND_CODE)
+		{
+			adr = p->pc + (p->arg_v[1] % IDX_MOD);
+			update_map(vm, p, p->arg_v[0], adr);
+		}
+		printf("P    %d | st r%d %d\n", p->num, p->arg_v[0],  p->arg_v[1]);
 	}
-	else if (p->arg[0] == REG_CODE && p->arg[1] == IND_CODE
-			 && r[2])
-	{
-		adr =(short)get_magic(vm->map, p->pc + 3, 2);
-//		adr = get_ind_value(vm, p, 3);
-//		printf("ADR == %d\n", adr);
-		update_map(vm, p, r[0], (adr + p->pc) % MEM_SIZE);
-//		adr += p->pc;
-	}
-	printf("P    %d | st r%d %d\n", p->num, r[0], adr);
-	p->pc = (p->pc + move_carret(p, p->cur_cmd)) % MEM_SIZE;
+	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 2)) % MEM_SIZE;
 }

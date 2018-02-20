@@ -38,6 +38,7 @@ static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
 	ft_bzero(p->reg, 68);
 	p->reg[1] = pl->num;
 	ft_bzero(p->arg, 12);
+	ft_bzero(p->arg_v, 12);
 	p->wait = 0;
 	p->cur_cmd = 0;
 	p->carry = 0;

@@ -14,8 +14,8 @@
 # define VM_STRUCTS_H
 
 # define PL_NUM 0xffffffff
-# define PR_LIM 1000
-# define GAME_LIM 2850
+# define PR_LIM 944
+# define GAME_LIM 1100
 # define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
 #define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 
@@ -25,9 +25,11 @@ typedef struct		s_proc
 	int 			num;
 	int 			reg[REG_NUMBER + 1];
 	int 			arg[3];
+	int 			arg_v[3];
 	int 			cur_cmd;
 	int 			wait;
 	int 			carry;
+	int 			is_alive;
 	struct s_proc	*next;
 }					t_proc;
 
