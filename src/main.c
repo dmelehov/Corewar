@@ -142,9 +142,16 @@ t_vm	*init_vm_struct(int ac, char **av)
 	vm->pls = NULL;
 	vm->cycles_to_dye = CYCLE_TO_DIE;
 	vm->cycles = 0;
-	vm->proc_alive = vm->pl_q;
+	vm->proc_alive = 0;
+	vm->live_amount = 0;
+	vm->winner = NULL;
 	init_funct_array(vm);
 	return (vm);
+}
+
+void	print_winner(t_players *pl)
+{
+	ft_printf("{red}Player %d (%s) won{eoc}\n", pl->num, pl->header->prog_name);
 }
 
 void	printer_nah(t_vm *vm)
@@ -181,6 +188,7 @@ int		main(int ac, char **av)
 	vm = init_vm_struct(ac, av);
 	check_arguments(vm, ac, av);
 	game_cycle(vm);
+	print_winner(vm->winner);
 //	print_player_struct(vm->pls);
 //	printer_nah(vm);
 	return (0);

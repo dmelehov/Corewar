@@ -37,6 +37,7 @@ void	op_lfork(t_vm *vm, t_proc *p)
 	p1 = get_proc_copy(p, adr, i + 1);
 	p1->next = pl->proc;
 	pl->proc = p1;
+	vm->proc_alive += 1;
 	printf("P    %d | lfork (%d) %d\n", p->num, adr, p1->pc);
 	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
 }

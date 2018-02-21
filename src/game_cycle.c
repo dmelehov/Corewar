@@ -4,6 +4,10 @@
 
 #include "../includes/vm.h"
 
+static void	srav()
+{
+	;
+}
 
 static void		executor(t_vm *vm, t_proc *p, int i)
 {
@@ -19,6 +23,8 @@ static void		executor(t_vm *vm, t_proc *p, int i)
 		ft_printf("{red|b}cycle == {%d}{eoc}\n", vm->cycles);
 		if (vm->cycles > PR_LIM && ft_printf("{green|b}Before cmd{eoc}\n"))
 			print_proc_struct(p);
+		if (vm->cycles == DEBUG)
+			srav();
 		vm->op[i](vm, p);
 		if (vm->cycles > PR_LIM && ft_printf("{blue|b}After cmd{eoc}\n"))
 			print_proc_struct(p);
@@ -52,25 +58,74 @@ static void	game_processor(t_vm *vm, t_players *pl)
 	pr = pl->proc;
 	while (pr)
 	{
-		if (!pr->cur_cmd)
+		if (pr->cur_cmd == 0)
 			set_process_data(vm, pr);
 		executor(vm, pr, vm->map[pr->pc]);
 		pr = pr->next;
 	}
 }
 
+static void	check_alive_proc(t_vm *vm, t_players *pl, t_proc *p)
+{
+	t_proc	*prev;
+	t_proc	*tmp;
+	int i;
+
+	i = 0;
+	prev = p;
+	while (p)
+	{
+		tmp = p->next;
+		if (!p->is_alive)
+		{
+			if (i == 0)
+				pl->proc = p->next;
+			else
+				prev->next = p->next;
+			vm->proc_alive -= 1;
+//			free(p);
+		}
+		else
+			p->is_alive = 0;
+		p = tmp;
+		if (i++ != 0)
+			prev = prev->next;
+	}
+}
+
+static void	live_manager(t_vm *vm, t_players *pl, int *cnt)
+{
+	if ((*cnt) == MAX_CHECKS || vm->live_amount >= NBR_LIVE)
+	{
+		vm->cycles_to_dye -= CYCLE_DELTA;
+		(*cnt) = 0;
+	}
+	if (vm->live_amount < NBR_LIVE)
+		(*cnt)++;
+	vm->live_amount = 0;
+	while (pl)
+	{
+		pl->live = 0;
+		check_alive_proc(vm, pl, pl->proc);
+		pl = pl->next;
+	}
+}
+
 void 	game_cycle(t_vm *vm)
 {
 	t_players *pl;
+	int i;
 
-	while (vm->cycles_to_dye && vm->proc_alive)
+	i = 0;
+	while (vm->cycles_to_dye > 0 && vm->proc_alive > 0)
 	{
 		vm->cycles += 1;
+		if (vm->cycles == DEBUG)
+			srav();
 		if (vm->cycles % vm->cycles_to_dye == 0)
 		{
-			vm->cycles_to_dye -= CYCLE_DELTA;
+			live_manager(vm, vm->pls, &i);
 		}
-
 		pl = vm->pls;
 		while (pl)
 		{

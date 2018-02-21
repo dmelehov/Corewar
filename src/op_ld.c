@@ -14,5 +14,5 @@ void	op_ld(t_vm *vm, t_proc *p)
 		printf("P    %d | ld %d r%d\n", p->num,
 			   p->reg[p->arg_v[1]], p->arg_v[1]);
 	}
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
+	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 2)) % MEM_SIZE;
 }

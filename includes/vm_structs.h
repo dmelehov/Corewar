@@ -14,10 +14,11 @@
 # define VM_STRUCTS_H
 
 # define PL_NUM 0xffffffff
-# define PR_LIM 944
-# define GAME_LIM 1100
+# define PR_LIM 160000
+# define GAME_LIM 100000
 # define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
-#define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
+# define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
+# define DEBUG 17201
 
 typedef struct		s_proc
 {
@@ -64,7 +65,12 @@ typedef	struct		s_vm
 	int				cycles;
 	int 			cycles_to_dye;
 	int				proc_alive;
+	int 			live_amount;
+	t_players		*winner;
 }					t_vm;
+
+
+
 
 /*
  * .COR STRUCTURE

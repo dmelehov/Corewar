@@ -43,6 +43,7 @@ static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
 	p->cur_cmd = 0;
 	p->carry = 0;
 	p->next = NULL;
+	vm->proc_alive += 1;
 	return (p);
 }
 

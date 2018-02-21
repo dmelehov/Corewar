@@ -11,6 +11,7 @@ void	op_live(t_vm *vm, t_proc *p)
 
 	arg = get_magic(vm->map, p->pc + 1, 4);
 	pl = vm->pls;
+	p->is_alive += 1;
 	printf("P    %d | live %d\n", p->num, arg);
 	while (pl)
 	{
@@ -18,11 +19,11 @@ void	op_live(t_vm *vm, t_proc *p)
 		{
 			pl->live++;
 			pl->llc = vm->cycles;
+			vm->live_amount += 1;
+			vm->winner = pl;
 			printf("Player %d (%s) is said to be alive\n",
 				   PL_NUM - pl->num + 1, pl->header->prog_name);
 		}
-		else
-			pl->live = 0;
 		pl = pl->next;
 	}
 	p->arg[0] = 2;

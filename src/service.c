@@ -67,15 +67,18 @@ void	update_map(t_vm *vm, t_proc *p, int r, int adr)
 	if (adr < 0)
 		adr += MEM_SIZE;
 	vm->map[(adr + 0) % MEM_SIZE] =
-			(unsigned char)(p->reg[r] << 0) >> 24;
+			(unsigned char)((p->reg[r] << 0) >> 24);
 	vm->map[(adr + 1) % MEM_SIZE] =
-			(unsigned char)(p->reg[r] << 8) >> 24;
+			(unsigned char)((p->reg[r] << 8) >> 24);
 	vm->map[(adr + 2) % MEM_SIZE] =
-			(unsigned char)(p->reg[r] << 16) >> 24;
+			(unsigned char)((p->reg[r] << 16) >> 24);
 	vm->map[(adr + 3) % MEM_SIZE] =
-			(unsigned char)(p->reg[r] << 24) >> 24;
-	printf("Updated map :\n");
-	print_map_fragment(vm->map, adr, adr+6);
+			(unsigned char)((p->reg[r] << 24) >> 24);
+//	if (vm->cycles > PR_LIM)
+//	{
+		printf("Updated map :\n");
+		print_map_fragment(vm->map, adr, adr+6);
+//	}
 }
 
 void		set_args_data(t_vm *vm, t_proc *p)
