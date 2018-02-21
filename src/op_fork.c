@@ -23,21 +23,17 @@ void	op_fork(t_vm *vm, t_proc *p)
 	t_proc	*p1;
 	t_players *pl;
 	short int adr;
-	int i;
 
 	p->arg[0] = 2;
 	pl = vm->pls;
-	i = 0;
 	while (pl && pl->turn != 1)
 		pl = pl->next;
-	p1 = pl->proc;
-	while (p1 && ++i)
-		p1 = p1->next;
 	adr = (short)get_magic(vm->map, p->pc + 1, 2);
-	p1 = get_proc_copy(p, adr, i + 1);
+	pl->mpn += 1;
+	p1 = get_proc_copy(p, adr, pl->mpn);
 	p1->next = pl->proc;
 	pl->proc = p1;
 	vm->proc_alive += 1;
-	printf("P    %d |fork (%d) %d\n", p->num, adr, p1->pc);
+	printf("P%5d | fork %d (%d)\n", p->num, adr, p1->pc);
 	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
 }

@@ -33,7 +33,8 @@ static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
 	t_proc	*p;
 
 	p = (t_proc *)ft_malloc_s(1, sizeof(t_proc));
-	p->num = 1;
+	pl->mpn += 1;
+	p->num = pl->mpn;
 	p->pc = start;
 	ft_bzero(p->reg, 68);
 	p->reg[1] = pl->num;
@@ -42,6 +43,8 @@ static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
 	p->wait = 0;
 	p->cur_cmd = 0;
 	p->carry = 0;
+	p->is_alive = 0;
+	p->age = 0;
 	p->next = NULL;
 	vm->proc_alive += 1;
 	return (p);

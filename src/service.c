@@ -74,11 +74,11 @@ void	update_map(t_vm *vm, t_proc *p, int r, int adr)
 			(unsigned char)((p->reg[r] << 16) >> 24);
 	vm->map[(adr + 3) % MEM_SIZE] =
 			(unsigned char)((p->reg[r] << 24) >> 24);
-//	if (vm->cycles > PR_LIM)
-//	{
+	if (vm->cycles > PR_LIM)
+	{
 		printf("Updated map :\n");
 		print_map_fragment(vm->map, adr, adr+6);
-//	}
+	}
 }
 
 void		set_args_data(t_vm *vm, t_proc *p)

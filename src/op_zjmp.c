@@ -21,5 +21,5 @@ void	op_zjmp(t_vm *vm, t_proc *p)
 	}
 	else
 		p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
-	printf(" P %d |zjmp %d %s\n", p->num, ind, s);
+	printf("P%5d | zjmp %d %s\n", p->num, ind, s);
 }

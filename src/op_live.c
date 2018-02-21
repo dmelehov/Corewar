@@ -12,7 +12,8 @@ void	op_live(t_vm *vm, t_proc *p)
 	arg = get_magic(vm->map, p->pc + 1, 4);
 	pl = vm->pls;
 	p->is_alive += 1;
-	printf("P    %d | live %d\n", p->num, arg);
+	p->age = 0;
+	printf("P%5d | live %d\n", p->num, arg);
 	while (pl)
 	{
 		if (pl->num == arg)

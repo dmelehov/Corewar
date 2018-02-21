@@ -45,7 +45,7 @@ void	get_champions(t_vm *vm, char *path, int num)
 
 	tmp = vm->pls;
 	p = (t_players *)ft_malloc_s(1, sizeof(t_players));
-	*p = (t_players){PL_NUM - num, 0, 0, 0, NULL, NULL, NULL};
+	*p = (t_players){PL_NUM - num, 0, 0, 0, 0, NULL, NULL, NULL};
 	if (!tmp)
 	{
 		vm->pls = p;
@@ -144,6 +144,7 @@ t_vm	*init_vm_struct(int ac, char **av)
 	vm->cycles = 0;
 	vm->proc_alive = 0;
 	vm->live_amount = 0;
+	vm->check = CYCLE_TO_DIE;
 	vm->winner = NULL;
 	init_funct_array(vm);
 	return (vm);
@@ -151,7 +152,8 @@ t_vm	*init_vm_struct(int ac, char **av)
 
 void	print_winner(t_players *pl)
 {
-	ft_printf("{red}Player %d (%s) won{eoc}\n", pl->num, pl->header->prog_name);
+	printf("Contestant %d, \"%s\", has won !\n",
+		   (PL_NUM - pl->num + 1), pl->header->prog_name);
 }
 
 void	printer_nah(t_vm *vm)
