@@ -16,6 +16,7 @@ void	op_zjmp(t_vm *vm, t_proc *p)
 	{
 		s = "OK";
 		p->pc = (p->pc + (ind % IDX_MOD)) % MEM_SIZE;
+		p->cur_cmd = 0;
 		if (p->pc < 0)
 			p->pc += MEM_SIZE;
 	}

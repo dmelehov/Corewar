@@ -18,7 +18,7 @@
 # define GAME_LIM 11000000
 # define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
 # define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
-# define DEBUG 2217
+# define DEBUG 11291
 
 typedef struct		s_proc
 {

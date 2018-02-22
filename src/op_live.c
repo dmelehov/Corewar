@@ -13,6 +13,7 @@ void	op_live(t_vm *vm, t_proc *p)
 	pl = vm->pls;
 	p->is_alive += 1;
 	p->age = 0;
+	vm->live_amount += 1;
 	printf("P%5d | live %d\n", p->num, arg);
 	while (pl)
 	{
@@ -20,7 +21,6 @@ void	op_live(t_vm *vm, t_proc *p)
 		{
 			pl->live++;
 			pl->llc = vm->cycles;
-			vm->live_amount += 1;
 			vm->winner = pl;
 			printf("Player %d (%s) is said to be alive\n",
 				   PL_NUM - pl->num + 1, pl->header->prog_name);

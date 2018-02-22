@@ -20,6 +20,7 @@ static void		executor(t_vm *vm, t_proc *p, int i)
 	}
 	if (i > 0 && i < 17)
 	{
+		set_args_data(vm, p);
 //		ft_printf("{red|b}cycle == {%d}{eoc}\n", vm->cycles);
 		if (vm->cycles > PR_LIM && ft_printf("{green|b}Before cmd{eoc}\n"))
 			print_proc_struct(p);
@@ -47,7 +48,6 @@ static void		set_process_data(t_vm *vm, t_proc *p)
 	{
 		p->wait = g_op_tab[i - 1].cost;
 		p->cur_cmd = g_op_tab[i - 1].opcode;
-		set_args_data(vm, p);
 	}
 }
 
@@ -61,7 +61,8 @@ static void	game_processor(t_vm *vm, t_players *pl)
 		pr->age += 1;
 		if (pr->cur_cmd == 0)
 			set_process_data(vm, pr);
-		executor(vm, pr, vm->map[pr->pc]);
+		executor(vm, pr, pr->cur_cmd);
+//		executor(vm, pr, vm->map[pr->pc]);
 		pr = pr->next;
 	}
 }
@@ -137,6 +138,7 @@ static void check_ctd(t_vm *vm, int *cnt)
 		vm->cycles_to_dye -= CYCLE_DELTA;
 		printf("Cycle to die is now %d\n", vm->cycles_to_dye);
 		(*cnt) = 0;
+		vm->live_amount = 0;
 	}
 	vm->live_amount = 0;
 	vm->check += vm->cycles_to_dye;
@@ -150,9 +152,8 @@ void 	game_cycle(t_vm *vm)
 	i = 0;
 	while (vm->proc_alive > 0)
 	{
-
 		vm->cycles += 1;
-		printf("%s %d\n", "It is now cycle", vm->cycles);
+		printf("It is now cycle %d\n", vm->cycles);
 		if (vm->cycles == DEBUG)
 		{
 			srav();
