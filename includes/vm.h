@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:00:09 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/07 17:50:31 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/24 20:35:55 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,21 @@ void	check_arguments(t_vm *vm, int ac, char **av);
 int		get_players_quantity(int ac, char **av);
 
 /*
-** parse_flags.c
+** service.c
 */
-void	parse_flags(t_vm *vm, int ac, char **av);
+
+void	set_args_data(t_vm *vm, t_proc *p);
+void	update_map(t_vm *vm, t_proc *p, int r, int adr);
+int		get_magic(unsigned char *s,int start, int len);
+int		calc_shift(t_vm *vm, t_proc *p, int max_i);
+int 	get_arg_value(t_vm *vm, t_proc *p, int an);
 
 /*
-** is_flag.c
+** game_process_revision.c
 */
 
-bool	is_flag(char *av);
-int 	flag_attr(char *av);
-
-
-/*
-**
-*/
-
-
-int			get_magic(unsigned char *s,int start, int len);
-int 		get_arg_value(t_vm *vm, t_proc *p, int an);
+void	live_manager(t_vm *vm, t_players *pl);
+void	check_cycles_to_die(t_vm *vm, int *cnt);
 
 /*
 ** game_cycle.c
@@ -81,14 +77,14 @@ int 		get_arg_value(t_vm *vm, t_proc *p, int an);
 void 		game_cycle(t_vm *vm);
 
 /*
-** operations.c
+** argument_manager.c
 */
 
-void	update_map(t_vm *vm, t_proc *p, int r, int adr);
-int		move_carret(t_proc *p, int cmd);
-int		get_ind_value(t_vm *vm, t_proc *p, int pos);
-int		calc_shift(t_proc *p, int cmd, int max_i);
+int		arg_checker(t_vm *vm, t_proc *p);
 
+/*
+** all opperations are located in apropriated files
+*/
 
 void	op_live(t_vm *vm, t_proc *p);
 void	op_ld(t_vm *vm, t_proc *p);
@@ -107,18 +103,17 @@ void	op_lldi(t_vm *vm, t_proc *p);
 void	op_lfork(t_vm *vm, t_proc *p);
 void	op_aff(t_vm *vm, t_proc *p);
 
+
 /*
-** argument_manager.c
+** parse_flags.c
+*/
+void	parse_flags(t_vm *vm, int ac, char **av);
+
+/*
+** is_flag.c
 */
 
-int		arg_checker(t_vm *vm, t_proc *p);
-
-
-void		set_args_data(t_vm *vm, t_proc *p);
-
-
-
-
-
+bool	is_flag(char *av);
+int 	flag_attr(char *av);
 
 #endif

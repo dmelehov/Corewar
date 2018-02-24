@@ -6,14 +6,13 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 17:49:05 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/23 18:34:03 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/24 18:59:20 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-
-void	init_proc(t_vm *vm, t_players *pl, int start)
+void			init_proc(t_vm *vm, t_players *pl, int start)
 {
 	t_proc	*p;
 	t_proc	*tmp;
@@ -30,7 +29,6 @@ void	init_proc(t_vm *vm, t_players *pl, int start)
 	vm->proc = p;
 	p->next = tmp;
 }
-
 
 /*
 ** Readind champion, validating its data;
@@ -72,7 +70,6 @@ t_header		*init_header_struct(unsigned char *data, int len)
 ** Operation table array
 ** Declared in op.h
 ** Describing comand attributes
-** 
 */
 
 static void		init_op_tab(t_vm *vm)

@@ -1,6 +1,14 @@
-//
-// Created by Dmitry Melehov on 2/16/18.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_fork.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/24 20:17:04 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/24 20:31:30 by dmelehov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -18,7 +26,6 @@ static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 	if (p->pc < 0)
 		p->pc += MEM_SIZE;
 	vm->proc_alive += 1;
-//	p->carry = 0;
 	p->cur_cmd = 0;
 	vm->proc = p;
 	p->next = tmp;
@@ -27,7 +34,6 @@ static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 
 void	op_fork(t_vm *vm, t_proc *p)
 {
-	t_proc	*p1;
 	t_players *pl;
 	short int adr;
 
@@ -36,6 +42,6 @@ void	op_fork(t_vm *vm, t_proc *p)
 	while (pl && pl->turn != 1)
 		pl = pl->next;
 	adr = (short)get_magic(vm->map, p->pc + 1, 2);
-	p1 = get_proc_copy(vm, p, adr);
-	printf("P%5d | fork %d (%d)\n", p->num, adr, p->pc + adr % IDX_MOD);
+	get_proc_copy(vm, p, adr);
+	ft_printf("P%5d | fork %d (%d)\n", p->num, adr, p->pc + adr % IDX_MOD);
 }

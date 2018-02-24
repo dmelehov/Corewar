@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 16:28:46 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/16 07:37:51 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/24 19:05:11 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 #define START_POSITION (MEM_SIZE/vm->pl_q * (PL_NUM - p->num))
 
-static void	check_champ_size(char *path, int len)
+static void		check_champ_size(char *path, int len)
 {
-	if (len <=  0)
+	if (len <= 0)
 	{
 		ft_printf("Error: File champs is too small to be a champion");
-		M_ERROR(-1, "");
+		exit(-1);
 	}
 	else if (len - HEADER > CHAMP_MAX_SIZE)
 	{
-		ft_printf("Error: File %s has too large a code (%d bytes > 682 bytes)", path, len);
-		M_ERROR(-1, "");
+		ft_printf("Error: File %s has too large a code ", path);
+		ft_printf("(%d bytes > 682 bytes)\n", len);
+		exit(-1);
 	}
 }
 
-static void	read_champ_data(t_vm *vm, char *str, t_players *p)
+static void		read_champ_data(t_vm *vm, char *str, t_players *p)
 {
-	int	fd;
-	int len;
+	int				fd;
+	int				len;
 	unsigned char	*s;
 
 	if ((fd = open(str, O_RDONLY)) < 3)
@@ -47,7 +48,7 @@ static void	read_champ_data(t_vm *vm, char *str, t_players *p)
 	init_proc(vm, p, START_POSITION);
 }
 
-static void	get_champions(t_vm *vm, char *path, int num)
+static void		get_champions(t_vm *vm, char *path, int num)
 {
 	t_players *p;
 	t_players *tmp;
@@ -60,7 +61,7 @@ static void	get_champions(t_vm *vm, char *path, int num)
 	read_champ_data(vm, path, p);
 }
 
-int		get_players_quantity(int ac, char **av)
+int				get_players_quantity(int ac, char **av)
 {
 	int	i;
 	int	j;
@@ -80,7 +81,7 @@ int		get_players_quantity(int ac, char **av)
 	return (j);
 }
 
-void	check_arguments(t_vm *vm, int ac, char **av)
+void			check_arguments(t_vm *vm, int ac, char **av)
 {
 	int	i;
 	int	j;

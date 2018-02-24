@@ -1,6 +1,14 @@
-//
-// Created by Dmitry Melehov on 2/20/18.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_lfork.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/24 20:18:41 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/24 20:32:31 by dmelehov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -19,7 +27,6 @@ static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 		p->pc += MEM_SIZE;
 	vm->proc_alive += 1;
 	p->cur_cmd = 0;
-//	p->carry = 0;
 	vm->proc = p;
 	p->next = tmp;
 	return (p);
@@ -36,6 +43,6 @@ void	op_lfork(t_vm *vm, t_proc *p)
 	while (pl && pl->turn != 1)
 		pl = pl->next;
 	adr = (short)get_magic(vm->map, p->pc + 1, 2);
-	p1 = get_proc_copy(vm, p, adr);
-	printf("P%5d | lfork %d (%d)\n", p->num, adr, p->pc + adr);
+	get_proc_copy(vm, p, adr);
+	ft_printf("P%5d | lfork %d (%d)\n", p->num, adr, p->pc + adr);
 }

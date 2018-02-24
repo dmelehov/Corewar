@@ -1,6 +1,14 @@
-//
-// Created by Dmitry Melehov on 2/19/18.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_and.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/24 20:16:48 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/24 20:31:21 by dmelehov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -15,8 +23,7 @@ void	op_and(t_vm *vm, t_proc *p)
 		argv[1] = get_arg_value(vm, p, 1);
 		p->reg[p->arg_v[2]] = (argv[0] & argv[1]);
 		p->carry = (p->reg[p->arg_v[2]] == 0 ? 1 : 0);
-		printf("P%5d | and %d %d r%d\n", p->num,
+		ft_printf("P%5d | and %d %d r%d\n", p->num,
 			   argv[0], argv[1], p->arg_v[2]);
 	}
-//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
 }

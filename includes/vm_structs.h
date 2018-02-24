@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:36 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/23 18:36:50 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/24 19:07:23 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define PLAYER_INIT (t_players){PL_NUM - num, 0, 0, 0, NULL, NULL, NULL}
 # define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 # define DEBUG 459700
+
 typedef struct		s_proc
 {
 	int				pc;
@@ -74,9 +75,6 @@ typedef	struct		s_vm
 	t_players		*pls;
 	t_players		*winner;
 }					t_vm;
-
-
-
 
 /*
  * .COR STRUCTURE

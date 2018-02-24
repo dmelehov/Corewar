@@ -1,6 +1,14 @@
-//
-// Created by Dmitry Melehov on 2/16/18.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_zjmp.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/24 20:22:13 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/24 20:33:43 by dmelehov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
@@ -21,6 +29,6 @@ void	op_zjmp(t_vm *vm, t_proc *p)
 			p->pc += MEM_SIZE;
 	}
 	else
-		p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
-	printf("P%5d | zjmp %d %s\n", p->num, ind, s);
+		p->pc = (p->pc + calc_shift(vm, p, 1)) % MEM_SIZE;
+	ft_printf("P%5d | zjmp %d %s\n", p->num, ind, s);
 }

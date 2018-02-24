@@ -15,7 +15,7 @@
 void	print_winner(t_players *pl)
 {
 	if (pl) {
-		printf("Contestant %d, \"%s\", has won !\n",
+		ft_printf("Contestant %d, \"%s\", has won !\n",
 			   (PL_NUM - pl->num + 1), pl->header->prog_name);
 	}
 }

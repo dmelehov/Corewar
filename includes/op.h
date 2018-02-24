@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/02/23 18:33:50 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/24 19:10:11 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ typedef struct		s_op
 ** 	int		b2_dir;		if DIR argument is 2 bytes this field is 1;
 ** }					t_op;
 */
-
-extern t_op			g_op_tab[17];
 
 #define T_REG					1
 #define T_DIR					2

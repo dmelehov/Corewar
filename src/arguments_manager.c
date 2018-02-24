@@ -1,45 +1,63 @@
-//
-// Created by Dmitry Melehov on 2/19/18.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arguments_manager.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/24 18:54:15 by dmelehov          #+#    #+#             */
+/*   Updated: 2018/02/24 19:53:45 by dmelehov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/vm.h"
 
-static int 		set_ind_value(t_vm *vm, t_proc *p, int i)
+/*
+** Following functions are universalized
+** to validate correctness of arguments
+** and if they are valid to set they're
+** values to an array
+** If args are not valid function returns 0
+*/
+
+static int		set_ind_value(t_vm *vm, t_proc *p, int i)
 {
 	short int	ind;
-	int 		shift;
+	int			shift;
 
-	shift = calc_shift(p, p->cur_cmd, i);
+	shift = calc_shift(vm, p, i);
 	ind = get_magic(vm->map, p->pc + shift, 2);
 	p->arg_v[i] = ind;
 	return (1);
 }
 
-static int 		set_dir_value(t_vm *vm, t_proc *p, int i)
+static int		set_dir_value(t_vm *vm, t_proc *p, int i)
 {
-	int len;
-	int shift;
+	int	len;
+	int	shift;
 
 	len = (vm->op_tab[p->cur_cmd].b2_dir == 0 ? 4 : 2);
-	shift = calc_shift(p, p->cur_cmd, i);
+	shift = calc_shift(vm, p, i);
 	p->arg_v[i] = get_magic(vm->map, p->pc + shift, len);
 	return (1);
 }
 
-static int 		set_reg_value(t_vm *vm, t_proc *p, int i)
+static int		set_reg_value(t_vm *vm, t_proc *p, int i)
 {
 	int r;
+	int shift;
 
-	r = vm->map[(p->pc + calc_shift(p, p->cur_cmd, i)) % MEM_SIZE];
+	shift = calc_shift(vm, p, i);
+	r = vm->map[(p->pc + shift) % MEM_SIZE];
 	if (!(r > 0 && r <= REG_NUMBER))
 		return (0);
 	p->arg_v[i] = r;
 	return (1);
 }
 
-static int 		get_argument(t_vm *vm, t_proc *p, int an)
+static int		get_argument(t_vm *vm, t_proc *p, int an)
 {
-	int a;
+	int	a;
 
 	a = p->arg[an];
 	if (a == REG_CODE && !set_reg_value(vm, p, an))
@@ -51,12 +69,12 @@ static int 		get_argument(t_vm *vm, t_proc *p, int an)
 	return (1);
 }
 
-int		arg_checker(t_vm *vm, t_proc *p)
+int				arg_checker(t_vm *vm, t_proc *p)
 {
 	int	i;
-	int k;
-	int l;
-	int l1;
+	int	k;
+	int	l;
+	int	l1;
 
 	i = 0;
 	k = vm->op_tab[p->cur_cmd].arg_num;
