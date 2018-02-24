@@ -18,5 +18,5 @@ void	op_and(t_vm *vm, t_proc *p)
 		printf("P%5d | and %d %d r%d\n", p->num,
 			   argv[0], argv[1], p->arg_v[2]);
 	}
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
+//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
 }

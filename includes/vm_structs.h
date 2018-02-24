@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:36 by dmelehov          #+#    #+#             */
-/*   Updated: 2018/02/09 19:45:36 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:36:50 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # define PL_NUM 0xffffffff
 # define PR_LIM 1000000000
-# define GAME_LIM 11000000
+# define GAME_LIM 243500
 # define FLAGS_INIT (t_flags){0,-1,-1,-1,0,0}
+# define PLAYER_INIT (t_players){PL_NUM - num, 0, 0, 0, NULL, NULL, NULL}
 # define HEADER (PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
-# define DEBUG 11291
-
+# define DEBUG 459700
 typedef struct		s_proc
 {
 	int				pc;
@@ -32,6 +32,7 @@ typedef struct		s_proc
 	int 			carry;
 	int 			is_alive;
 	int 			age;
+	int 			pl_num;
 	struct s_proc	*next;
 }					t_proc;
 
@@ -41,7 +42,6 @@ typedef struct		s_players
 	int 			turn;
 	int 			live;
 	int 			llc;
-	int 			mpn;
 	t_proc			*proc;
 	t_header		*header;
 	struct s_players	*next;
@@ -60,15 +60,18 @@ typedef struct		s_flags
 typedef	struct		s_vm
 {
 	unsigned char	*map;
+	t_op			op_tab[17];
 	void			(*op[17])(struct s_vm *vm, t_proc *p);
+	t_proc			*proc;
+	int				proc_alive;
+	int				cycles;
+	int 			cycles_to_die;
+	int 			check;
+	int 			live_amount;
 	int				pl_q;
+	int 			mpn;
 	t_flags			*flags;
 	t_players		*pls;
-	int				cycles;
-	int 			cycles_to_dye;
-	int				proc_alive;
-	int 			live_amount;
-	int 			check;
 	t_players		*winner;
 }					t_vm;
 

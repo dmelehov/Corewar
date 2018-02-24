@@ -18,6 +18,6 @@ void	op_xor(t_vm *vm, t_proc *p)
 		printf("P%5d | xor %d %d r%d\n", p->num,
 			   argv[0], argv[1], p->arg_v[2]);
 	}
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
+//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
 }
 

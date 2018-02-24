@@ -9,6 +9,75 @@ static void	srav()
 	;
 }
 
+static void    check_alive_proc(t_vm *vm, t_proc *p) // Furkatos
+{
+	t_proc    *tmp;
+
+	while (p && !p->is_alive)
+	{
+		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+		p->num, p->age, vm->cycles_to_die);
+		tmp = p->next;
+		free(p);
+		p = tmp;
+		vm->proc_alive -= 1;
+	}
+	vm->proc = p;
+	while (p && p->next)
+	{
+		p->is_alive = 0;
+		if (!p->next->is_alive)
+		{
+			printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+				   p->next->num, p->next->age, vm->cycles_to_die);
+			tmp = p->next->next;
+			free(p->next);
+			p->next = tmp;
+			vm->proc_alive -= 1;
+		}
+		else
+			p = p->next;
+	}
+	if (p)
+		p->is_alive = 0;
+}
+
+static void	kill_them_all(t_proc *p)
+{
+	while (p)
+	{
+		p->is_alive = 0;
+		p = p->next;
+	}
+}
+
+static void	live_manager(t_vm *vm, t_players *pl)
+{
+	if (vm->cycles_to_die <= 0)
+		kill_them_all(vm->proc);
+	check_alive_proc(vm, vm->proc);
+	while (pl)
+	{
+		pl->live = 0;
+		pl = pl->next;
+	}
+}
+
+static void check_ctd(t_vm *vm, int *cnt)
+{
+	if (vm->live_amount < NBR_LIVE)
+		(*cnt)++;
+	if ((*cnt) == MAX_CHECKS || vm->live_amount >= NBR_LIVE)
+	{
+		vm->cycles_to_die -= CYCLE_DELTA;
+		printf("Cycle to die is now %d\n", vm->cycles_to_die);
+		(*cnt) = 0;
+		vm->live_amount = 0;
+	}
+	vm->live_amount = 0;
+	vm->check += vm->cycles_to_die;
+}
+
 static void		executor(t_vm *vm, t_proc *p, int i)
 {
 
@@ -21,14 +90,11 @@ static void		executor(t_vm *vm, t_proc *p, int i)
 	if (i > 0 && i < 17)
 	{
 		set_args_data(vm, p);
-//		ft_printf("{red|b}cycle == {%d}{eoc}\n", vm->cycles);
-		if (vm->cycles > PR_LIM && ft_printf("{green|b}Before cmd{eoc}\n"))
-			print_proc_struct(p);
 		if (vm->cycles == DEBUG)
 			srav();
 		vm->op[i](vm, p);
-		if (vm->cycles > PR_LIM && ft_printf("{blue|b}After cmd{eoc}\n"))
-			print_proc_struct(p);
+		if (i != 9)
+			p->pc = (p->pc + calc_shift(p, i, vm->op_tab[i].arg_num)) % MEM_SIZE;
 	}
 	else
 		p->pc = (p->pc + 1) % MEM_SIZE;
@@ -46,107 +112,24 @@ static void		set_process_data(t_vm *vm, t_proc *p)
 		return ;
 	else if (i > 0 && i < 17)
 	{
-		p->wait = g_op_tab[i - 1].cost;
-		p->cur_cmd = g_op_tab[i - 1].opcode;
+		p->wait = vm->op_tab[i].cost;
+		p->cur_cmd = vm->op_tab[i].opcode;
 	}
 }
 
-static void	game_processor(t_vm *vm, t_players *pl)
+static void	game_processor(t_vm *vm, t_proc *pr)
 {
-	t_proc	*pr;
-
-	pr = pl->proc;
 	while (pr)
 	{
 		pr->age += 1;
 		if (pr->cur_cmd == 0)
 			set_process_data(vm, pr);
 		executor(vm, pr, pr->cur_cmd);
-//		executor(vm, pr, vm->map[pr->pc]);
 		pr = pr->next;
 	}
 }
-
-static void    check_alive_proc(t_vm *vm, t_players *pl, t_proc *p) // Furkatos
-{
-	t_proc    *tmp;
-
-	while (p && !p->is_alive)
-	{
-		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-		p->num, p->age, vm->cycles_to_dye);
-		tmp = p->next;
-		free(p);
-		p = tmp;
-		vm->proc_alive -= 1;
-	}
-	pl->proc = p;
-	while (p && p->next)
-	{
-		p->is_alive = 0;
-		if (!p->next->is_alive)
-		{
-			printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-				   p->next->num, p->next->age, vm->cycles_to_dye);
-			tmp = p->next->next;
-			free(p->next);
-			p->next = tmp;
-			vm->proc_alive -= 1;
-		}
-		else
-			p = p->next;
-	}
-	if (p)
-		p->is_alive = 0;
-}
-
-
-static void	kill_them_all(t_players *pl)
-{
-	t_proc *p;
-
-	while (pl)
-	{
-		p = pl->proc;
-		while (p)
-		{
-			p->is_alive = 0;
-			p = p->next;
-		}
-		pl = pl->next;
-	}
-}
-
-static void	live_manager(t_vm *vm, t_players *pl)
-{
-	if (vm->cycles_to_dye <= 0)
-		kill_them_all(vm->pls);
-	while (pl)
-	{
-		pl->live = 0;
-		check_alive_proc(vm, pl, pl->proc);
-		pl = pl->next;
-	}
-}
-
-static void check_ctd(t_vm *vm, int *cnt)
-{
-	if (vm->live_amount < NBR_LIVE)
-		(*cnt)++;
-	if ((*cnt) == MAX_CHECKS || vm->live_amount >= NBR_LIVE)
-	{
-		vm->cycles_to_dye -= CYCLE_DELTA;
-		printf("Cycle to die is now %d\n", vm->cycles_to_dye);
-		(*cnt) = 0;
-		vm->live_amount = 0;
-	}
-	vm->live_amount = 0;
-	vm->check += vm->cycles_to_dye;
-}
-
 void 	game_cycle(t_vm *vm)
 {
-	t_players *pl;
 	int i;
 
 	i = 0;
@@ -156,22 +139,16 @@ void 	game_cycle(t_vm *vm)
 		printf("It is now cycle %d\n", vm->cycles);
 		if (vm->cycles == DEBUG)
 		{
+			print_map(vm->map);
 			srav();
-//			print_map(vm->map);
 		}
-		pl = vm->pls;
-		while (pl)
+		game_processor(vm, vm->proc);
+		if (vm->cycles >= vm->check)
 		{
-			pl->turn = 1;
-			game_processor(vm, pl);
-			pl->turn = 0;
-			pl = pl->next;
-		}
-		if (vm->cycles >= vm->check)
 			live_manager(vm, vm->pls);
-		if (vm->cycles_to_dye <= 0 || vm->cycles == GAME_LIM)
-			break ;
-		if (vm->cycles >= vm->check)
 			check_ctd(vm, &i);
+		}
+		if (vm->cycles == GAME_LIM)
+			break ;
 	}
 }

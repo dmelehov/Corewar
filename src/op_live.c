@@ -28,6 +28,6 @@ void	op_live(t_vm *vm, t_proc *p)
 		pl = pl->next;
 	}
 	p->arg[0] = 2;
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
+//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
 }
 

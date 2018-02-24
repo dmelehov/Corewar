@@ -12,6 +12,14 @@
 
 #include "../includes/vm.h"
 
+void	print_winner(t_players *pl)
+{
+	if (pl) {
+		printf("Contestant %d, \"%s\", has won !\n",
+			   (PL_NUM - pl->num + 1), pl->header->prog_name);
+	}
+}
+
 
 void	print_player_struct(t_players *p)
 {
@@ -138,4 +146,27 @@ void	print_map(unsigned char *map)
 		ft_printf(" %02x", map[i]);
 	}
 	ft_printf("\n");
+}
+
+void	printer_nah(t_vm *vm)
+{
+	t_players	*pl;
+	t_proc		*pr;
+
+	pl = vm->pls;
+	while (pl)
+	{
+		ft_printf("{red|b}Player with name {%s}{eoc}\n", pl->header->prog_name);
+		ft_printf("--------------------\n\n");
+		pr = pl->proc;
+		while (pr)
+		{
+			print_proc_struct(pr);
+			print_map_fragment(vm->map, pr->pc, pr->pc + 5);
+
+			pr = pr->next;
+		}
+		pl = pl->next;
+//		ft_printf("--------------------\n\n");
+	}
 }

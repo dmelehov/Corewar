@@ -19,5 +19,5 @@ void	op_st(t_vm *vm, t_proc *p)
 		}
 		printf("P%5d | st r%d %d\n", p->num, p->arg_v[0],  p->arg_v[1]);
 	}
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 2)) % MEM_SIZE;
+//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 2)) % MEM_SIZE;
 }

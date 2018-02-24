@@ -9,9 +9,9 @@ void	op_sub(t_vm *vm, t_proc *p)
 	if (arg_checker(vm, p))
 	{
 		p->reg[p->arg_v[2]] = p->reg[p->arg_v[0]] - p->reg[p->arg_v[1]];
-		p->carry = (p->reg[p->arg_v[0]] == 0 ? 1 : 0);
+		p->carry = (p->reg[p->arg_v[2]] == 0 ? 1 : 0);
 		printf("P%5d | sub r%d r%d r%d\n",
 			   p->num, p->arg_v[0], p->arg_v[1], p->arg_v[2]);
 	}
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
+//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
 }

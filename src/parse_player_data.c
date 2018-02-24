@@ -28,29 +28,7 @@ static void	check_champ_size(char *path, int len)
 	}
 }
 
-static t_proc	*init_proc(t_vm *vm, t_players *pl, int start)
-{
-	t_proc	*p;
-
-	p = (t_proc *)ft_malloc_s(1, sizeof(t_proc));
-	pl->mpn += 1;
-	p->num = pl->mpn;
-	p->pc = start;
-	ft_bzero(p->reg, 68);
-	p->reg[1] = pl->num;
-	ft_bzero(p->arg, 12);
-	ft_bzero(p->arg_v, 12);
-	p->wait = 0;
-	p->cur_cmd = 0;
-	p->carry = 0;
-	p->is_alive = 0;
-	p->age = 0;
-	p->next = NULL;
-	vm->proc_alive += 1;
-	return (p);
-}
-
-void	read_champ_data(t_vm *vm, char *str, t_players *p)
+static void	read_champ_data(t_vm *vm, char *str, t_players *p)
 {
 	int	fd;
 	int len;
@@ -65,7 +43,57 @@ void	read_champ_data(t_vm *vm, char *str, t_players *p)
 	if (read(fd, s, len) <= 0)
 		M_ERROR(-1, ft_strjoin("Can't read source file ", str));
 	p->header = init_header_struct(s, len);
-	p->proc = NULL;
 	ft_memcpy(vm->map + START_POSITION, s + HEADER, len - HEADER);
-	p->proc = init_proc(vm, p, START_POSITION);
+	init_proc(vm, p, START_POSITION);
+}
+
+static void	get_champions(t_vm *vm, char *path, int num)
+{
+	t_players *p;
+	t_players *tmp;
+
+	tmp = vm->pls;
+	p = (t_players *)ft_malloc_s(1, sizeof(t_players));
+	*p = PLAYER_INIT;
+	vm->pls = p;
+	p->next = tmp;
+	read_champ_data(vm, path, p);
+}
+
+int		get_players_quantity(int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < ac)
+	{
+		if (ft_strequ(ft_strrchr(av[i], '.'), ".cor"))
+			j++;
+		i++;
+	}
+	if (j > 4)
+		M_ERROR(-1, "Too many champions");
+	else if (j == 0)
+		print_usage();
+	return (j);
+}
+
+void	check_arguments(t_vm *vm, int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	parse_flags(vm, ac, av);
+	while (i < ac)
+	{
+		if (is_flag(av[i]))
+			i += flag_attr(av[i]);
+		else if (ft_strequ(ft_strrchr(av[i], '.'), ".cor"))
+			get_champions(vm, av[i], j++);
+		i++;
+	}
 }

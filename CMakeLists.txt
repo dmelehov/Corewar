@@ -135,4 +135,4 @@ add_executable(corewar
         src/parse_flags.c
         src/is_flag.c
         src/parse_player_data.c
-        src/init_header.c src/game_cycle.c src/op_aff.c src/op_st.c src/service.c src/op_ld.c src/op_live.c src/op_fork.c src/op_sub.c src/op_add.c src/op_zjmp.c src/op_sti.c src/op_ldi.c src/op_lldi.c src/op_and.c src/arguments_manager.c src/op_or.c src/op_xor.c src/op_lld.c src/op_lfork.c)
+        src/game_cycle.c src/op_aff.c src/op_st.c src/service.c src/op_ld.c src/op_live.c src/op_fork.c src/op_sub.c src/op_add.c src/op_zjmp.c src/op_sti.c src/op_ldi.c src/op_lldi.c src/op_and.c src/arguments_manager.c src/op_or.c src/op_xor.c src/op_lld.c src/op_lfork.c src/initializations.c)

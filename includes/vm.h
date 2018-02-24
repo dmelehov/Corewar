@@ -24,6 +24,14 @@
 void	print_usage(void);
 
 /*
+** initializations.c
+*/
+
+t_vm		*init_vm_struct(int ac, char **av);
+void		init_proc(t_vm *vm, t_players *pl, int start);
+t_header	*init_header_struct(unsigned char *data, int len);
+
+/*
 ** debug_printer.c
 */
 
@@ -35,6 +43,15 @@ void	print_header_struct(t_header *h);
 void	print_player_struct(t_players *p);
 void	print_registry(int *reg);
 void	print_arguments(int *arg);
+void	printer_nah(t_vm *vm);
+void	print_winner(t_players *pl);
+
+/*
+** parse_player_data.c
+*/
+
+void	check_arguments(t_vm *vm, int ac, char **av);
+int		get_players_quantity(int ac, char **av);
 
 /*
 ** parse_flags.c
@@ -48,18 +65,12 @@ void	parse_flags(t_vm *vm, int ac, char **av);
 bool	is_flag(char *av);
 int 	flag_attr(char *av);
 
-/*
-** parse_player_data.c
-*/
-
-void	get_champions_data(t_vm *vm, char *str, int count);
-void	read_champ_data(t_vm *vm, char *str, t_players *p);
 
 /*
-** init_header.c
+**
 */
 
-t_header	*init_header_struct(unsigned char *data, int len);
+
 int			get_magic(unsigned char *s,int start, int len);
 int 		get_arg_value(t_vm *vm, t_proc *p, int an);
 
@@ -104,6 +115,8 @@ int		arg_checker(t_vm *vm, t_proc *p);
 
 
 void		set_args_data(t_vm *vm, t_proc *p);
+
+
 
 
 

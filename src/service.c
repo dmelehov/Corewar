@@ -11,7 +11,12 @@ int 	get_arg_value(t_vm *vm, t_proc *p, int an)
 	if (p->arg[an] == REG_CODE)
 		return (p->reg[p->arg_v[an]]);
 	else if (p->arg[an] == DIR_CODE)
+	{
+		if (vm->op_tab[p->cur_cmd].b2_dir)
+			return ((short)p->arg_v[an]);
 		return (p->arg_v[an]);
+	}
+
 	else if (p->arg[an] == IND_CODE)
 	{
 		if (p->cur_cmd != 13 && p->cur_cmd != 14)

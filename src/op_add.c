@@ -13,6 +13,6 @@ void	op_add(t_vm *vm, t_proc *p)
 		printf("P%5d | add r%d r%d r%d\n",
 			   p->num, p->arg_v[0], p->arg_v[1], p->arg_v[2]);
 	}
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
+//	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 3)) % MEM_SIZE;
 }
 

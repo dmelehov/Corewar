@@ -4,17 +4,24 @@
 
 #include "../includes/vm.h"
 
-static	t_proc	*get_proc_copy(t_proc *pr, int start,int num)
+static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 {
 	t_proc	*p;
+	t_proc	*tmp;
 
+	tmp = vm->proc;
 	p = (t_proc *)ft_malloc_s(1, sizeof(t_proc));
 	ft_memcpy(p, pr, sizeof(t_proc));
-	p->num = num;
+	vm->mpn += 1;
+	p->num = vm->mpn;
 	p->pc = ((p->pc + start) % MEM_SIZE);
 	if (p->pc < 0)
 		p->pc += MEM_SIZE;
+	vm->proc_alive += 1;
 	p->cur_cmd = 0;
+//	p->carry = 0;
+	vm->proc = p;
+	p->next = tmp;
 	return (p);
 }
 
@@ -29,11 +36,6 @@ void	op_lfork(t_vm *vm, t_proc *p)
 	while (pl && pl->turn != 1)
 		pl = pl->next;
 	adr = (short)get_magic(vm->map, p->pc + 1, 2);
-	pl->mpn += 1;
-	p1 = get_proc_copy(p, adr, pl->mpn);
-	p1->next = pl->proc;
-	pl->proc = p1;
-	vm->proc_alive += 1;
+	p1 = get_proc_copy(vm, p, adr);
 	printf("P%5d | lfork %d (%d)\n", p->num, adr, p->pc + adr);
-	p->pc = (p->pc + calc_shift(p, p->cur_cmd, 1)) % MEM_SIZE;
 }

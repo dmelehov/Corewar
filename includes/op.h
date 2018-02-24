@@ -6,7 +6,7 @@
 /*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/02/08 16:46:43 by dmelehov         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:33:50 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,20 @@ typedef struct		s_op
 	int				arg_len;
 	int				b2_dir;
 }					t_op;
+
+/*
+** typedef struct		s_op
+** {
+** 	char	*name;		command name;
+** 	int		arg_num;	quantity of args;
+** 	int		args[3];	types of recieving args;
+** 	int		opcode;		operation code;
+** 	int		cost;		how much cycles to wait before performing;
+** 	char	*comment;	just a comment;
+** 	int		arg_len;	if there is a coding byte this field is 1;
+** 	int		b2_dir;		if DIR argument is 2 bytes this field is 1;
+** }					t_op;
+*/
 
 extern t_op			g_op_tab[17];
 

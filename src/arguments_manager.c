@@ -20,7 +20,7 @@ static int 		set_dir_value(t_vm *vm, t_proc *p, int i)
 	int len;
 	int shift;
 
-	len = (g_op_tab[p->cur_cmd - 1].b2_dir == 0 ? 4 : 2);
+	len = (vm->op_tab[p->cur_cmd].b2_dir == 0 ? 4 : 2);
 	shift = calc_shift(p, p->cur_cmd, i);
 	p->arg_v[i] = get_magic(vm->map, p->pc + shift, len);
 	return (1);
@@ -59,10 +59,10 @@ int		arg_checker(t_vm *vm, t_proc *p)
 	int l1;
 
 	i = 0;
-	k = g_op_tab[p->cur_cmd - 1].arg_num;
+	k = vm->op_tab[p->cur_cmd].arg_num;
 	while (i < k)
 	{
-		l = g_op_tab[p->cur_cmd - 1].args[i];
+		l = vm->op_tab[p->cur_cmd].args[i];
 		l1 = (1 << (p->arg[i] - 1));
 		if (p->arg[i] != 0 && (l & l1) == l1)
 		{
