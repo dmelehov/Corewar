@@ -6,7 +6,6 @@ CMakeLists.txt
 corewar
 asm
 ./asm
-README.md
 .README.md
 *.cw
 .idea/
