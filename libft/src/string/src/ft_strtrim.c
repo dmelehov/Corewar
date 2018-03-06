@@ -13,7 +13,7 @@
 #include "../../../includes/libft.h"
 #define SKIPCHAR "\n\t "
 
-static	int		ft_getend(char const *s, int i)
+static	int		ft_get_end(char const *s, int i)
 {
 	if (*s == '\0' || i < 0)
 		return (-1);
@@ -22,7 +22,7 @@ static	int		ft_getend(char const *s, int i)
 	return (i < 0 ? -1 : i);
 }
 
-static	int		ft_getstart(char const *s, int i)
+static	int		ft_get_start(char const *s, int i)
 {
 	while (ft_strchr(SKIPCHAR, s[i]))
 		i++;
@@ -39,10 +39,10 @@ char			*ft_strtrim(char const *s)
 
 	if (s)
 	{
-		end = ft_getend(s, ft_strlen(s) - 1);
+		end = ft_get_end(s, ft_strlen(s) - 1);
 		if (end == -1)
 			return (ft_strnew(0));
-		start = ft_getstart(s, 0);
+		start = ft_get_start(s, 0);
 		if (!(res = ft_strnew(end - start + 1)))
 			return (NULL);
 		return (ft_strncpy(res, s + start, end - start + 1));
