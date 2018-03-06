@@ -19,7 +19,8 @@ void	op_lld(t_vm *vm, t_proc *p)
 		p->arg_v[0] = get_arg_value(vm, p, 0);
 		p->reg[p->arg_v[1]] = p->arg_v[0];
 		p->carry = (p->reg[p->arg_v[1]] == 0 ? 1 : 0);
-		ft_printf("P%5d | lld %d r%d\n", p->num,
-			   p->reg[p->arg_v[1]], p->arg_v[1]);
+		if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+			ft_printf("P %4d | lld %d r%d\n", p->num,
+				p->reg[p->arg_v[1]], p->arg_v[1]);
 	}
 }

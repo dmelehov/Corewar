@@ -18,7 +18,8 @@ void	op_sub(t_vm *vm, t_proc *p)
 	{
 		p->reg[p->arg_v[2]] = p->reg[p->arg_v[0]] - p->reg[p->arg_v[1]];
 		p->carry = (p->reg[p->arg_v[2]] == 0 ? 1 : 0);
-		ft_printf("P%5d | sub r%d r%d r%d\n",
-			   p->num, p->arg_v[0], p->arg_v[1], p->arg_v[2]);
+		if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+			ft_printf("P %4d | sub r%d r%d r%d\n",
+				p->num, p->arg_v[0], p->arg_v[1], p->arg_v[2]);
 	}
 }

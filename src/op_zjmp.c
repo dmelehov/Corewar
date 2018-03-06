@@ -14,12 +14,16 @@
 
 void	op_zjmp(t_vm *vm, t_proc *p)
 {
-	short int ind;
-	char *s;
+	short int	ind;
+	char		*s;
+	int			pc;
 
 	s = "FAILED";
 	p->arg[0] = 2;
 	ind = (short)(get_magic(vm->map, p->pc + 1, 2));
+	if (vm->flags->n)
+		del_proc(p);
+	pc = p->pc;
 	if (p->carry == 1)
 	{
 		s = "OK";
@@ -30,5 +34,8 @@ void	op_zjmp(t_vm *vm, t_proc *p)
 	}
 	else
 		p->pc = (p->pc + calc_shift(vm, p, 1)) % MEM_SIZE;
-	ft_printf("P%5d | zjmp %d %s\n", p->num, ind, s);
+	if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+		ft_printf("P %4d | zjmp %d %s\n", p->num, ind, s);
+	if (ft_strequ("FAILED", s))
+		if_jump_flag(vm, pc, p->pc, 1);
 }

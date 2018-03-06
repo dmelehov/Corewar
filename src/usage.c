@@ -31,14 +31,11 @@ void	print_usage(void)
 	ft_putendl("\t\t\t\t- 4 : Show operations (Params are NOT litteral ...)");
 	ft_putendl("\t\t\t\t- 8 : Show deaths");
 	ft_putendl("\t\t\t\t- 16 : Show PC movements (Except for jumps)");
-	ft_putstr("#### BINARY OUTPUT MODE #");
-	ft_putendl(STR);
-	ft_putendl("\t-b\t\t: Binary output mode for corewar.42.fr");
-	ft_putendl("\t--stealth : Hides the real contents of the memory");
 	ft_putstr("#### NCURSES OUTPUT MODE ");
 	ft_putendl(STR);
 	ft_putendl("\t-n\t\t: Ncurses output mode");
 	ft_putendl("\t--stealth : Hides the real contents of the memory");
+	ft_putendl("\t--sound : Sound effect");
 	ft_putstr("#########################");
 	M_ERROR(0, STR);
 }

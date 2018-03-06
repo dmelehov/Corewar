@@ -19,12 +19,13 @@ void	op_st(t_vm *vm, t_proc *p)
 	if (arg_checker(vm, p))
 	{
 		if (p->arg[1] == REG_CODE)
-			p->reg[p->arg_v[1]]  = p->reg[p->arg_v[0]];
+			p->reg[p->arg_v[1]] = p->reg[p->arg_v[0]];
 		else if (p->arg[1] == IND_CODE)
 		{
 			adr = p->pc + (p->arg_v[1] % IDX_MOD);
 			update_map(vm, p, p->arg_v[0], adr);
 		}
-		ft_printf("P%5d | st r%d %d\n", p->num, p->arg_v[0],  p->arg_v[1]);
+		if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+			ft_printf("P %4d | st r%d %d\n", p->num, p->arg_v[0], p->arg_v[1]);
 	}
 }

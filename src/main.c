@@ -23,6 +23,6 @@ int		main(int ac, char **av)
 	vm = init_vm_struct(ac, av);
 	check_arguments(vm, ac, av);
 	game_cycle(vm);
-	print_winner(vm->winner);
+	print_winner(vm);
 	return (0);
 }

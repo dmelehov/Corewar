@@ -141,5 +141,7 @@ t_vm			*init_vm_struct(int ac, char **av)
 	*(vm->flags) = FLAGS_INIT;
 	vm->pls = NULL;
 	vm->winner = NULL;
+	vm->pr_info = 0;
+	vm->info_pr = NULL;
 	return (vm);
 }

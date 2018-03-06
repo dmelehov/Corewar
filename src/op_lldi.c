@@ -23,8 +23,13 @@ void	op_lldi(t_vm *vm, t_proc *p)
 		argv[2] = ((argv[0] + argv[1]) % MEM_SIZE);
 		p->reg[p->arg_v[2]] = get_magic(vm->map, p->pc + argv[2], 4);
 		p->carry = (p->reg[p->arg_v[2]] == 0 ? 1 : 0);
-		ft_printf("P%5d | lldi %d %d r%d\n", p->num, argv[0], argv[1], p->arg_v[2]);
-		ft_printf("       | -> load from %d + %d = %d ", argv[0], argv[1], argv[0] + argv[1]);
-		ft_printf("(with pc %d)\n", p->pc + argv[0] + argv[1]);
+		if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+		{
+			ft_printf("P %4d | lldi %d %d r%d\n",
+				p->num, argv[0], argv[1], p->arg_v[2]);
+			ft_printf("       | -> load from %d + %d = %d ",
+				argv[0], argv[1], argv[0] + argv[1]);
+			ft_printf("(with pc %d)\n", p->pc + argv[0] + argv[1]);
+		}
 	}
 }

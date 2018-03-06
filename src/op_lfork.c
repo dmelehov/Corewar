@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
+static void		get_proc_copy(t_vm *vm, t_proc *pr, int start)
 {
 	t_proc	*p;
 	t_proc	*tmp;
@@ -29,14 +29,12 @@ static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 	p->cur_cmd = 0;
 	vm->proc = p;
 	p->next = tmp;
-	return (p);
 }
 
-void	op_lfork(t_vm *vm, t_proc *p)
+void			op_lfork(t_vm *vm, t_proc *p)
 {
-	t_proc	*p1;
-	t_players *pl;
-	int adr;
+	t_players	*pl;
+	int			adr;
 
 	p->arg[0] = 2;
 	pl = vm->pls;
@@ -44,5 +42,6 @@ void	op_lfork(t_vm *vm, t_proc *p)
 		pl = pl->next;
 	adr = (short)get_magic(vm->map, p->pc + 1, 2);
 	get_proc_copy(vm, p, adr);
-	ft_printf("P%5d | lfork %d (%d)\n", p->num, adr, p->pc + adr);
+	if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+		ft_printf("P %4d | lfork %d (%d)\n", p->num, adr, p->pc + adr);
 }

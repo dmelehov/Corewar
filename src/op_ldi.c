@@ -22,9 +22,13 @@ void	op_ldi(t_vm *vm, t_proc *p)
 		argv[1] = get_arg_value(vm, p, 1);
 		argv[2] = (short)((argv[0] + argv[1]) % IDX_MOD);
 		p->reg[p->arg_v[2]] = get_magic(vm->map, p->pc + argv[2], 4);
-		ft_printf("P%5d | ldi %d %d r%d\n", p->num, argv[0], argv[1], p->arg_v[2]);
-		ft_printf("       | -> load from %d + %d = %d ", argv[0], argv[1], argv[0] + argv[1]);
-		ft_printf("(with pc and mod %d)\n", p->pc + argv[2]);
+		if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+		{
+			ft_printf("P %4d | ldi %d %d r%d\n",
+				p->num, argv[0], argv[1], p->arg_v[2]);
+			ft_printf("       | -> load from %d + %d = %d ",
+				argv[0], argv[1], argv[0] + argv[1]);
+			ft_printf("(with pc and mod %d)\n", p->pc + argv[2]);
+		}
 	}
 }
-

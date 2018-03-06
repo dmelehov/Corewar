@@ -113,6 +113,8 @@ void	update_map(t_vm *vm, t_proc *p, int r, int adr)
 			(unsigned char)((p->reg[r] << 16) >> 24);
 	vm->map[(adr + 3) % MEM_SIZE] =
 			(unsigned char)((p->reg[r] << 24) >> 24);
+	if (vm->flags->n)
+		update_win(vm, p, adr);
 }
 
 /*

@@ -22,7 +22,7 @@ static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 	ft_memcpy(p, pr, sizeof(t_proc));
 	vm->mpn += 1;
 	p->num = vm->mpn;
-	p->pc = (p->pc + (start % IDX_MOD));
+	p->pc = (p->pc + (start % IDX_MOD)) % MEM_SIZE;
 	if (p->pc < 0)
 		p->pc += MEM_SIZE;
 	vm->proc_alive += 1;
@@ -32,7 +32,7 @@ static	t_proc	*get_proc_copy(t_vm *vm, t_proc *pr, int start)
 	return (p);
 }
 
-void	op_fork(t_vm *vm, t_proc *p)
+void			op_fork(t_vm *vm, t_proc *p)
 {
 	t_players *pl;
 	short int adr;
@@ -43,5 +43,6 @@ void	op_fork(t_vm *vm, t_proc *p)
 		pl = pl->next;
 	adr = (short)get_magic(vm->map, p->pc + 1, 2);
 	get_proc_copy(vm, p, adr);
-	ft_printf("P%5d | fork %d (%d)\n", p->num, adr, p->pc + adr % IDX_MOD);
+	if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)
+		ft_printf("P %4d | fork %d (%d)\n", p->num, adr, p->pc + adr % IDX_MOD);
 }

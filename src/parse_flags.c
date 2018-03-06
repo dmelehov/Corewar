@@ -12,33 +12,9 @@
 
 #include "../includes/vm.h"
 
-static void	check_a_flag(t_vm *vm, int ac, char **av)
-{
-	int 	i;
-
-	i = -1;
-	while (++i < ac)
-		if (ft_strequ(av[i], "-a"))
-			vm->flags->a = 1;
-}
-
-static void	check_d_flag(t_vm *vm, int ac, char **av)
-{
-	int 	i;
-
-	i = -1;
-	while (++i < ac)
-		if (ft_strequ(av[i], "-d"))
-		{
-			if (i + 1 == ac)
-				M_ERROR(-1, "Can't read source file -d");
-			vm->flags->d = ft_atoi(av[++i]);
-		}
-}
-
 static void	check_s_flag(t_vm *vm, int ac, char **av)
 {
-	int 	i;
+	int	i;
 
 	i = -1;
 	while (++i < ac)
@@ -52,7 +28,7 @@ static void	check_s_flag(t_vm *vm, int ac, char **av)
 
 static void	check_v_flag(t_vm *vm, int ac, char **av)
 {
-	int 	i;
+	int	i;
 
 	i = -1;
 	while (++i < ac)
@@ -66,7 +42,7 @@ static void	check_v_flag(t_vm *vm, int ac, char **av)
 
 static void	check_b_flag(t_vm *vm, int ac, char **av)
 {
-	int 	i;
+	int	i;
 
 	i = -1;
 	while (++i < ac)
@@ -76,15 +52,30 @@ static void	check_b_flag(t_vm *vm, int ac, char **av)
 
 static void	check_n_flag(t_vm *vm, int ac, char **av)
 {
-	int 	i;
+	int	i;
 
 	i = -1;
 	while (++i < ac)
 		if (ft_strequ(av[i], "-n"))
+		{
 			vm->flags->n = 1;
+			if (i + 1 != ac && ft_strequ(av[i + 1], "--stealth"))
+			{
+				vm->flags->n = 2;
+				if (i + 2 != ac && ft_strequ(av[i + 2], "--sound"))
+					vm->flags->n = 6;
+			}
+			if (i + 1 != ac && ft_strequ(av[i + 1], "--sound"))
+			{
+				vm->flags->n = 4;
+				if (i + 2 != ac && ft_strequ(av[i + 2], "--stealth"))
+					vm->flags->n = 6;
+			}
+			return ;
+		}
 }
 
-void	parse_flags(t_vm *vm, int ac, char **av)
+void		parse_flags(t_vm *vm, int ac, char **av)
 {
 	check_a_flag(vm, ac, av);
 	check_d_flag(vm, ac, av);
@@ -93,4 +84,3 @@ void	parse_flags(t_vm *vm, int ac, char **av)
 	check_b_flag(vm, ac, av);
 	check_n_flag(vm, ac, av);
 }
-
