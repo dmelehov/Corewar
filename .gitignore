@@ -1,0 +1,21 @@
+*.o
+./obj
+./libft/obj
+cmake-build-debug
+CMakeLists.txt
+corewar
+asm
+./asm
+README.md
+.README.md
+*.cw
+.idea/
+\ .idea/
+.DS_Store
+*.cor
+*.s
+libft/libft.a
+libft/.cache_exists
+champs/
+a.out
+test.c
