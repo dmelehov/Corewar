@@ -15,17 +15,19 @@
 
 static	int		ft_getend(char const *s, int i)
 {
-	if (*s == '\0')
+	if (*s == '\0' || i < 0)
 		return (-1);
-	while (ft_strchr(SKIPCHAR, s[i]) && i > 0)
+	while (ft_strrchr(SKIPCHAR, s[i]) && i >= 0)
 		i--;
-	return (i <= 0 ? -1 : i);
+	return (i < 0 ? -1 : i);
 }
 
 static	int		ft_getstart(char const *s, int i)
 {
 	while (ft_strchr(SKIPCHAR, s[i]))
 		i++;
+	if (s[i] == '\0')
+		return (0);
 	return (i);
 }
 
