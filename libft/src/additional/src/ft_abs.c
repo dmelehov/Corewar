@@ -12,7 +12,7 @@
 
 #include "../../../includes/libft.h"
 
-unsigned int			ft_to_bin(unsigned int k)
+int		ft_abs(int k)
 {
-	return (k == 0 || k == 1 ? k : ((k % 2) + 10 * ft_to_bin(k / 2)));
+	return ((k < 0) ? -k : k);
 }

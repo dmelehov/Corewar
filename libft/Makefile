@@ -35,7 +35,7 @@ WHITE:="\033[1;37m"
 
 # ===== Auto =======
 # SRC:= $(wildcard ./src/*/src/*.c)
-SRC:=   libft/src/additional/src/ft_to_bin.c \
+SRC:=   libft/src/additional/src/ft_abs.c \
         libft/src/array/src/ft_array_access.c \
         libft/src/array/src/ft_array_capacity.c \
         libft/src/array/src/ft_array_foreach.c \
