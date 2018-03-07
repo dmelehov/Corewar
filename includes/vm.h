@@ -129,6 +129,7 @@ void		visualize(t_vm *vm);
 */
 
 void		update_win(t_vm *vm, t_proc *p, int adr);
+int			ft_abs(int n);
 void		end_game(t_vm *vm);
 
 /*

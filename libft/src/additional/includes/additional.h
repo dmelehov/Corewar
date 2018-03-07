@@ -15,6 +15,6 @@
 
 # include "../../../includes/libft.h"
 
-int		ft_abs(int k);
+unsigned int			ft_to_bin(unsigned int k);
 
 #endif

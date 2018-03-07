@@ -1,11 +1,11 @@
 *.o
 ./obj
+./asm_obj
 ./libft/obj
 cmake-build-debug
 CMakeLists.txt
 corewar
 asm
-./asm
 .README.md
 *.cw
 .idea/

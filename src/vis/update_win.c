@@ -12,6 +12,11 @@
 
 #include "../../includes/vm.h"
 
+int			ft_abs(int n)
+{
+	return ((n < 0) ? -n : n);
+}
+
 void		update_win(t_vm *vm, t_proc *p, int adr)
 {
 	attron(COLOR_PAIR(ft_abs(p->pl_num)));
