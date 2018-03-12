@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshevche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:59:22 by dshevche          #+#    #+#             */
-/*   Updated: 2018/03/06 16:33:56 by dshevche         ###   ########.fr       */
+/*   Updated: 2018/03/12 12:57:41 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void				ft_read_n_c(char *s, t_main *main, int fd, int *nbr)
 		M_ERROR(-1, "Not a valid sequence");
 }
 
-int					ft_read_file(char *name, t_line_list **list, t_main *main)
+int					ft_read_file(char *name, t_line_list **list,
+									t_main *main, int r)
 {
 	int			fd;
 	char		*str;
@@ -97,9 +98,9 @@ int					ft_read_file(char *name, t_line_list **list, t_main *main)
 
 	*list = NULL;
 	nbr = 0;
-	if ((fd = open(name, O_RDONLY)) == -1)
+	if ((fd = open(name, O_RDONLY)) < 3)
 		return (ft_err("open", -1));
-	while ((get_next_line(fd, &str)))
+	while ((r = get_next_line(fd, &str)) > 0)
 	{
 		nbr++;
 		if (ft_is_empty(str) == 0)
@@ -110,7 +111,7 @@ int					ft_read_file(char *name, t_line_list **list, t_main *main)
 				return (-1);
 		}
 	}
-	close(fd);
+	r == -1 ? M_ERROR(-1, "Not a file") : close(fd);
 	free(str);
 	if (*list == NULL)
 		return (ft_err("empty", -1));
