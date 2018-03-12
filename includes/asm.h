@@ -94,7 +94,8 @@ int					ft_remove_labels(t_line_list *list);
 int					ft_get_type_param(t_line_list *line);
 void				ft_get_position(t_line_list *list);
 int					ft_inst_check(char *str);
-int					ft_read_file(char *name, t_line_list **list, t_main *main);
+int					ft_read_file(char *name, t_line_list **list,
+									t_main *main, int r);
 char				**ft_split_cmd(char *str);
 t_line_list			*get_last(t_line_list *list);
 int					ft_is_empty(char *str);

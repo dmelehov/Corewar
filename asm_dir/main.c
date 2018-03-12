@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshevche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmelehov <dmelehov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 13:31:43 by dshevche          #+#    #+#             */
-/*   Updated: 2018/03/06 13:31:48 by dshevche         ###   ########.fr       */
+/*   Updated: 2018/03/12 12:57:57 by dmelehov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				ft_check_end(char *name)
 
 	i = -1;
 	end = (char *)malloc(sizeof(char) * 1);
-	if ((fd = open(name, O_RDONLY)) == -1)
+	if ((fd = open(name, O_RDONLY)) < 3)
 		return (ft_err("open", 0));
 	lseek(fd, -1, SEEK_END);
 	read(fd, end, 1);
@@ -89,7 +89,7 @@ int				ft_assemble(char *name)
 
 	if ((main = ft_init_main()) == NULL)
 		return (ft_err("malloc", -1));
-	if (ft_read_file(name, &list, main) == -1)
+	if (ft_read_file(name, &list, main, 0) == -1)
 		return (ft_free_list(list, main, -1));
 	if (ft_check_end(name))
 		return (ft_free_list(list, main, -1));

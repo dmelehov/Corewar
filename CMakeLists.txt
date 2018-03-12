@@ -189,6 +189,7 @@ set(SOURCE_FILES asm_dir/main.c
         asm_dir/bytecode_help.c
         asm_dir/helper4.c
         asm_dir/helper5.c
+        asm_dir/helper6.c
         asm_dir/op.c)
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 add_executable(my_asm ${SOURCE_FILES} ${LIBFT})

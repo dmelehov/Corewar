@@ -48,6 +48,7 @@ static void		read_champ_data(t_vm *vm, char *str, t_players *p)
 	p->start = START_POSITION;
 	p->len = len - HEADER;
 	init_proc(vm, p, START_POSITION);
+	ft_strdel((char **)&s);
 }
 
 static void		get_champions(t_vm *vm, char *path, int num)
