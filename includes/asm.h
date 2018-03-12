@@ -31,6 +31,7 @@
 # define FOUR_BYTE_MASK_2 0b00000000000000001111111100000000
 # define FULL_BYTE 0b11111111
 # define MY_LONG_MAX 9223372036854775807
+# define FULL_INT 0xffffffff
 
 typedef struct		s_line{
 	char			*r_line;
@@ -57,9 +58,12 @@ typedef struct		s_main
 	unsigned char	*bytes;
 }					t_main;
 
+int					ft_check_len(t_main *main);
+int					ft_check_first_label(t_line_list *list);
+void				ft_add_space(char **str);
 char				*some_modifying(char **res, char *s);
 void				some_modifying_two(char *s, char *ptr, char **res);
-int					read_helper(t_line_list **list, char *str, int *nbr);
+int					read_helper(t_line_list **list, char **str, int *nbr);
 int					skip_wspcs(char *s);
 int					check_eos(char *s);
 t_line_list			*create_file(char *line, int nbr);

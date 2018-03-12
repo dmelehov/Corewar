@@ -32,7 +32,7 @@ int		get_arg_value(t_vm *vm, t_proc *p, int an)
 	}
 	else if (p->arg[an] == IND_CODE)
 	{
-		if (p->cur_cmd != 13 && p->cur_cmd != 14)
+		if (p->cur_cmd != 13)
 			adr = p->pc + (p->arg_v[an] % IDX_MOD);
 		else
 			adr = p->pc + (p->arg_v[an] % MEM_SIZE);

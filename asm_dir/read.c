@@ -98,7 +98,7 @@ int					ft_read_file(char *name, t_line_list **list, t_main *main)
 	*list = NULL;
 	nbr = 0;
 	if ((fd = open(name, O_RDONLY)) == -1)
-		return (ft_err("open", 0));
+		return (ft_err("open", -1));
 	while ((get_next_line(fd, &str)))
 	{
 		nbr++;
@@ -106,7 +106,7 @@ int					ft_read_file(char *name, t_line_list **list, t_main *main)
 		{
 			if (main->name == NULL || main->comment == NULL)
 				ft_read_n_c(str, main, fd, &nbr);
-			else if (read_helper(list, str, &nbr) == -1)
+			else if (read_helper(list, &str, &nbr) == -1)
 				return (-1);
 		}
 	}
@@ -114,5 +114,5 @@ int					ft_read_file(char *name, t_line_list **list, t_main *main)
 	free(str);
 	if (*list == NULL)
 		return (ft_err("empty", -1));
-	return (0);
+	return (ft_check_len(main));
 }

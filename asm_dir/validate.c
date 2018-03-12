@@ -41,7 +41,7 @@ int		ft_check_args_n(t_line_list *list)
 	}
 	if (g_op_tab[par].arg_num != list->ent.args_n)
 	{
-		ft_printf("Invalid parameter %d type ", g_op_tab[par].arg_num - 1);
+		ft_printf("Invalid parameter %d type ", g_op_tab[par].arg_num);
 		ft_printf("register for instruction %s\n", g_op_tab[par].name);
 		return (-1);
 	}

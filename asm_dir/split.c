@@ -14,7 +14,8 @@
 
 int					ft_is_space(char c)
 {
-	if (c == '\t' || c == ' ' || c == SEPARATOR_CHAR)
+	if (c == '\t' || c == ' ' || c == SEPARATOR_CHAR
+		|| c == '\n' || c == '\v' || c == '\f' || c == '\r')
 		return (1);
 	else
 		return (0);
@@ -78,6 +79,7 @@ char				*ft_clear_comment(char *str)
 		}
 		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }
 

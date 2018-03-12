@@ -74,23 +74,23 @@ unsigned char	ft_get_op(char *inst, char *line)
 
 int				ft_param_code(t_main *main, char **tab, int *index)
 {
-	int			num;
+	int			i;
 
-	num = 1;
-	while (tab[num])
+	i = 1;
+	while (tab[i])
 	{
-		if (tab[num][0] == 'r')
-			ft_write(main->bytes, ft_atoi(&(tab[num][1])), index, 1);
-		else if (tab[num][0] != '%')
-			ft_write(main->bytes, ft_atoi(tab[num]), index, 2);
-		else if (tab[num][0] == '%')
+		if (tab[i][0] == 'r')
+			ft_write(main->bytes, ft_atoi(&(tab[i][1])), index, 1);
+		else if (tab[i][0] != '%')
+			ft_write(main->bytes, ft_atoi(tab[i]), index, 2);
+		else if (tab[i][0] == '%')
 		{
-			if (ft_spec_case(tab[0], num) == 1)
-				ft_write(main->bytes, ft_atoi_1(&(tab[num][1])), index, 2);
+			if (ft_spec_case(tab[0], i) == 1)
+				ft_write(main->bytes, ft_atoi_1(&(tab[i][1])), index, 2);
 			else
-				ft_write(main->bytes, ft_atoi(&(tab[num][1])), index, 4);
+				ft_write(main->bytes, ft_atoi_1(&(tab[i][1])), index, 4);
 		}
-		num += 1;
+		i += 1;
 	}
 	return (0);
 }

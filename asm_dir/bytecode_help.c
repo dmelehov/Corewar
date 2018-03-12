@@ -36,6 +36,7 @@ int					ft_spec_case(char *inst, int n)
 	((ft_strcmp(inst, "ldi") == 0 && (n == 1 || n == 2)) ? i++ : 0);
 	((ft_strcmp(inst, "lldi") == 0 && (n == 1 || n == 2)) ? i++ : 0);
 	ft_strcmp(inst, "fork") == 0 ? i++ : 0;
+	ft_strcmp(inst, "lfork") == 0 ? i++ : 0;
 	((ft_strcmp(inst, "zjmp") == 0)) ? i++ : 0;
 	if (i != 0)
 		return (1);

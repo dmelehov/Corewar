@@ -27,6 +27,8 @@ int			ft_is_label(char *str)
 	i = -1;
 	while (str[++i])
 		;
+	while (str[i] == ' ')
+		i--;
 	if (str[i - 1] == ':')
 		return (1);
 	else
@@ -38,7 +40,7 @@ int			ft_atoi_ret(int neg)
 	if (neg)
 		return (0);
 	else
-		return (2147483647);
+		return (FULL_INT);
 }
 
 int			ft_atoi_1(const char *str)
@@ -76,11 +78,13 @@ int			ft_check_label_char(t_line_list *list, int n)
 	int pos;
 
 	i = -1;
-	if (list->ent.com[n][0] == '%')
+	if (list->ent.com[n][0] == '%' || list->ent.com[n][0] == ':')
 		i = 0;
+	if (list->ent.com[n][1] == ':')
+		i = 1;
 	while (list->ent.com[n][++i])
 	{
-		if (ft_strchr(LABEL_CHARS, list->ent.com[n][++i]) == 0)
+		if (ft_strchr(LABEL_CHARS, list->ent.com[n][i]) == 0)
 		{
 			pos = ft_get_pos(list->ent.r_line, list->ent.com[n]);
 			ft_printf("Lexical error at [");

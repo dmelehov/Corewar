@@ -89,6 +89,7 @@ ASM_SRC:= ./asm_dir/main.c \
 		./asm_dir/bytecode_help.c \
 		./asm_dir/helper4.c \
 		./asm_dir/helper5.c \
+		./asm_dir/helper6.c \
 		./asm_dir/op.c
 ASM_OBJ:= $(subst $(ASM_DIR), $(ASM_OBJ_DIR), $(ASM_SRC:.c=.o))
 # ==================

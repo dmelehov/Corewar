@@ -41,7 +41,7 @@ char			*ft_get_bytes2(t_line_list *list, t_line_list *tmp)
 	char		*tmp_s;
 
 	tmp_s = ft_itoa(list->ent.pos - tmp->ent.pos);
-	ret = malloc(sizeof(ft_strlen(tmp_s) + 1));
+	ret = ft_strnew(sizeof(ft_strlen(tmp_s) + 1));
 	ret[0] = '%';
 	ret[1] = '\0';
 	ret = ft_strcat(ret, tmp_s);
@@ -75,7 +75,7 @@ char			*ft_byte(t_line_list *list, t_line_list *tmp, int i, char *err)
 	ft_printf(" while attempting to dereference token [TOKEN]");
 	ft_printf("[%03d:%d]", tmp->ent.nbr, ft_get_pos(tmp->ent.r_line, err) + 1);
 	err[0] == '%' ? ft_printf(" ") : ft_printf(" IN");
-	ft_printf("DIRECT_LABEL %s\n", err);
+	ft_printf("DIRECT_LABEL \"%s\"\n", err);
 	return (NULL);
 }
 
@@ -110,6 +110,8 @@ int				ft_redirect_lables(t_line_list *list)
 
 int				ft_remove_labels(t_line_list *list)
 {
+	if (ft_check_first_label(list) == -1)
+		return (-1);
 	if (ft_check_lables(list) == -1)
 		return (-1);
 	if (ft_is_duplicate(list) == -1)

@@ -124,7 +124,7 @@ int				main(int argc, char **argv)
 	}
 	if (i == 1)
 	{
-		ft_putstr("no input files\n");
+		ft_printf("Usage: ./asm <sourcefile.s>\n");
 		return (1);
 	}
 	return (0);

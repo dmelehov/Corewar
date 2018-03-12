@@ -16,19 +16,12 @@ char	*get_name(char *name)
 {
 	size_t	i;
 	char	*new_name;
-	int		err_flag;
 	char	*new_name_free;
 
-	i = 0;
-	err_flag = 1;
+	i = ft_strlen(name);
+	i--;
 	while (name[i] && name[i] != '.')
-	{
-		i++;
-		if (name[i] == '.' && name[i + 1] == 's')
-			err_flag = 0;
-	}
-	if (err_flag == 1)
-		return (NULL);
+		i--;
 	new_name = ft_strnew(i + 6);
 	new_name_free = new_name;
 	ft_strncpy(new_name, name, i);

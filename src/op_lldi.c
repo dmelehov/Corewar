@@ -16,11 +16,15 @@ void	op_lldi(t_vm *vm, t_proc *p)
 {
 	int argv[3];
 
+	if (vm->cycles == 410)
+		;
 	if (arg_checker(vm, p))
 	{
 		argv[0] = get_arg_value(vm, p, 0);
 		argv[1] = get_arg_value(vm, p, 1);
 		argv[2] = ((argv[0] + argv[1]) % MEM_SIZE);
+		if (vm->cycles == 410)
+			;
 		p->reg[p->arg_v[2]] = get_magic(vm->map, p->pc + argv[2], 4);
 		p->carry = (p->reg[p->arg_v[2]] == 0 ? 1 : 0);
 		if (!vm->flags->n && vm->flags->v != -1 && (vm->flags->v & 4) == 4)

@@ -26,7 +26,7 @@ static int		set_ind_value(t_vm *vm, t_proc *p, int i)
 	int			shift;
 
 	shift = calc_shift(vm, p, i);
-	ind = get_magic(vm->map, p->pc + shift, 2);
+	ind = (short)get_magic(vm->map, p->pc + shift, 2);
 	p->arg_v[i] = ind;
 	return (1);
 }
